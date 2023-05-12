@@ -1,17 +1,22 @@
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class TopPane extends HBox{
 	
   public TopPane() {
-	  setSpacing(150);
-	  setPadding(new Insets(15,15,15,15));  
-	  getChildren().add(new Label("Level#1"));
-	  getChildren().add(new Label("Score: 0"));
-	  getChildren().add(new Button("Next Level >>"));
-	  
+	  spacingProperty().bind(widthProperty().divide(3));
+	  setPadding(new Insets(5,5,5,5));
+		Text t1 = new Text("Level #x");
+		Text t2 = new Text("Score: x");
+		Text t3 = new Text("Next Level >>");
+		//OPAKLIK ya da renk DEĞİŞECEK
+		t3.setStyle("");
+		Border.stroke(Color.BLACK);
+		getChildren().addAll(t1,t2,t3);
+		setStyle("-fx-border-color: black");
   }
 	
 }
