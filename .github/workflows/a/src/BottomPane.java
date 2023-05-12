@@ -19,7 +19,7 @@ public class BottomPane extends BorderPane {
 		});
 		//
 
-		setPadding(new Insets(15, 0, 150, 15));
+		setPadding(new Insets(5,5,5,5));
 		setRight(b);
 		setLeft(new Text("SADSA"));
 	}
