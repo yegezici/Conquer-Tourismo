@@ -25,7 +25,8 @@ public class Project extends Application{
 		//orta??
 		GridPane mPane = new GridPane();
 		//ust
-		HBox top = new HBox(15);
+		HBox top = new HBox();
+		top.spacingProperty().bind(goatPane.widthProperty().divide(4));
 		//alt
 		BorderPane bottom = new BorderPane();
 		
