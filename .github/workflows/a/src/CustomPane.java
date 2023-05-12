@@ -13,13 +13,29 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class CustomPane extends GridPane {
+public class CenterPane extends GridPane {
     private static final int FIELD_SIZE = 10;
     private static final int SQUARE_SIZE = 50;
 
-    public CustomPane() {
+    public CenterPane() {
         int id = 1;
-
+        Image img = new Image("ist.png");
+        Image img1 = new Image("mersin.png");
+        Image img2 = new Image("city1.png");
+        Image img3 = new Image("city2.png");
+        Image img4 = new Image("city3.png");
+        Image img5 = new Image("city4.png");
+        
+        Image[] imgarr = new Image[6];
+        imgarr[0] = img;
+        imgarr[1] = img1;
+        imgarr[2] = img2;
+        imgarr[3] = img3;
+        imgarr[4] = img4;
+        imgarr[5] = img5;
+        
+        
+        
         for (int row = 0; row < FIELD_SIZE; row++) {
             for (int col = 0; col < FIELD_SIZE; col++) {
                 Rectangle square = new Rectangle(SQUARE_SIZE, SQUARE_SIZE);
@@ -38,8 +54,8 @@ public class CustomPane extends GridPane {
                     
                     label.toFront();
                     //label.setPadding(new Insets(0,0,0,15));
-                    Image img = new Image("ist.png");
-                    ImageView iv = new ImageView(img);
+                    
+                    ImageView iv = new ImageView(imgarr[(int)(Math.random() * 6)]);
                     iv.setFitHeight(35);
                     iv.setFitWidth(35);
                    // add(iv, 3, 1);
@@ -55,8 +71,8 @@ public class CustomPane extends GridPane {
                     Label label = new Label("Mersin");
                     add(label, 1, 6);
                     setPadding(new Insets(15,15,15,15));
-                    Image img = new Image("mersin.png");
-                    ImageView iv = new ImageView(img);
+                    
+                    ImageView iv = new ImageView(imgarr[(int)(Math.random() * 6)]);
                     iv.setFitHeight(35);
                     iv.setFitWidth(35);
                    // add(iv, 3, 1);
@@ -69,8 +85,8 @@ public class CustomPane extends GridPane {
                     Label label = new Label("Van");
                     add(label, 8, 8);
                     setPadding(new Insets(15,15,15,15));
-                    Image img = new Image("ist.png");
-                    ImageView iv = new ImageView(img);
+                    
+                    ImageView iv = new ImageView(imgarr[(int)(Math.random() * 6)]);
                     iv.setFitHeight(35);
                     iv.setFitWidth(35);
                    // add(iv, 3, 1);
