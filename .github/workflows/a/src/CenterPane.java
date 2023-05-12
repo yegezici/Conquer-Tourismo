@@ -1,5 +1,7 @@
 
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -14,8 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class CenterPane extends GridPane {
-    private static final int FIELD_SIZE = 10;
-    private static final int SQUARE_SIZE = 50;
+    int rectangleCount = 10;
 
     public CenterPane() {
         int id = 1;
@@ -36,9 +37,11 @@ public class CenterPane extends GridPane {
         
         
         
-        for (int row = 0; row < FIELD_SIZE; row++) {
-            for (int col = 0; col < FIELD_SIZE; col++) {
-                Rectangle square = new Rectangle(SQUARE_SIZE, SQUARE_SIZE);
+        for (int row = 0; row < rectangleCount; row++) {
+            for (int col = 0; col < rectangleCount; col++) {
+                Rectangle square = new Rectangle();
+                square.widthProperty().bind(widthProperty().divide(10).subtract(10));
+                square.heightProperty().bind(heightProperty().divide(10).subtract(10));;
                 square.setFill(Color.WHITE);
                 square.setId(String.valueOf(id));
               //  square.setStroke(Color.BLACK);
