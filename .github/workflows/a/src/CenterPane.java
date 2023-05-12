@@ -1,13 +1,9 @@
 
-
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -42,9 +38,9 @@ public class CenterPane extends GridPane {
                 Rectangle square = new Rectangle();
                 square.widthProperty().bind(widthProperty().divide(10).subtract(10));
                 square.heightProperty().bind(heightProperty().divide(10).subtract(10));;
-                square.setFill(Color.WHITE);
+                square.setFill(Color.TRANSPARENT);
                 square.setId(String.valueOf(id));
-              //  square.setStroke(Color.BLACK);
+              //square.setStroke(Color.BLACK);
 
                 add(square, col, row);
 
