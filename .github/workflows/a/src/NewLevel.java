@@ -1,17 +1,26 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class NewLevel {
 	File filename;
 	int fixedCell;
-
+	Vehicle vehicle = new Vehicle();
+	Passenger passanger = new Passenger();
+	City city = new City();
+    ArrayList<City> cities = new ArrayList<City>();
+    ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+    ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+    ArrayList<Integer> fixedCells = new ArrayList<Integer>();
+    
 	NewLevel() {
 
 	}
 
 	NewLevel(File filename) {
 		this.filename = filename;
+		
 	}
 	//Scanner boşluk görmediği için her satırı kelime olarak algılıyordu, ben de direkt nextLine ile diğer satırı String olarak alıp
 	//split ile array oluşturdum. 
@@ -19,44 +28,37 @@ public class NewLevel {
 		try {
 			Scanner input = new Scanner(filename); 
 			String str ="";
-			Vehicle vehicle = new Vehicle();
-			Passenger passanger = new Passenger();
-			City city = new City();
-			while (input.hasNext()) {
-				 str = "";
+			
+			while (input.hasNextLine()) {
+				 str="";
 				 str = input.nextLine();
 				String[] inputs = str.split(",");
 				if (inputs[0].equals("City")) {
-					city.name = inputs[1];
-					city.locId = Integer.valueOf(inputs[2]);
-					city.id = Integer.valueOf(inputs[3]);
+					city = new City(inputs[1],Integer.valueOf(inputs[2]),Integer.valueOf(inputs[3]));
+					cities.add(city);
+					
 				}
 				else if (inputs[0].equals("Passenger")) {
-					passanger.numOfPas = Integer.valueOf(inputs[1]);
-					passanger.startId = Integer.valueOf(inputs[2]);
-					passanger.destId = Integer.valueOf(inputs[3]);
+					passanger = new Passenger(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]),Integer.valueOf(inputs[3]));
+					passengers.add(passanger);
 				}
 				else if (inputs[0].equals("Vehicle")) {
-					vehicle.cityId = Integer.valueOf(inputs[1]);
-					vehicle.capacity = Integer.valueOf(inputs[2]);
+					vehicle = new Vehicle(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]));
+					vehicles.add(vehicle);
 				}
 				else if (inputs[0].equals("Fixed")) {
 					this.fixedCell = Integer.valueOf(inputs[1]);
+					fixedCells.add(fixedCell);
 				}
-
+            
 			}
-			System.out.println(city.name);
-			System.out.println(city.locId);
-			System.out.println(city.id);
-			System.out.println(passanger.numOfPas);
-			System.out.println(passanger.startId);
-			System.out.println(passanger.destId);
-			System.out.println(vehicle.cityId);
-			System.out.println(vehicle.capacity);
-			System.out.println(fixedCell);
+			
+			
+			
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("There is no file " + e.getMessage());
 		}
+		
 	}
 }
