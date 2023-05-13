@@ -12,7 +12,6 @@ import javafx.scene.shape.Rectangle;
 public class CenterPane extends GridPane {
 	int rectangleCount = 10;
 
-
 	public CenterPane() {
 		int id = 1;
 		Image img = new Image("ist.png");
@@ -24,7 +23,9 @@ public class CenterPane extends GridPane {
 		Image[] imgarr = { img, img1, img2, img3, img4, img5 };
 		// Anlamadigim bir hata veriyordu boyle yapinca duzeldi
 		// CityButton icin innerclass actim orada gormesi icn constructorun disina aldim
-		//>> sonra gerek kalmadigini anlayip tekrar iceri aldim
+		// >> sonra gerek kalmadigini anlayip tekrar iceri aldim
+		//En son komple ayrildi
+
 		for (int row = 0; row < rectangleCount; row++) {
 			for (int col = 0; col < rectangleCount; col++) {
 				Rectangle square = new Rectangle();
@@ -52,50 +53,6 @@ public class CenterPane extends GridPane {
 				id++;
 			}
 		}
-	}
-
-	class CityButton {
-		String name;
-		Image img;
-
-		CityButton() {
-
-		}
-
-		CityButton(String name, Image img) {
-			this.name = name;
-			this.img = img;
-		}
-
-		public VBox cityButton() {
-
-			Button cB = new Button();
-			cB.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
-			// çalışmasını görmek için yazdım
-			cB.setOnAction(e -> {
-				System.out.println("cB clicked");
-			});
-			
-			//Direkt kopyaladim burayi
-			Label label = new Label(this.name);
-			label.setAlignment(Pos.BOTTOM_CENTER);
-//			label.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-			label.toFront();
-
-			VBox vb = new VBox(1);
-			vb.setAlignment(Pos.CENTER);
-
-			ImageView iv = new ImageView(this.img);
-			iv.setFitHeight(35);
-			iv.setFitWidth(35);
-
-			cB.setGraphic(iv);
-			vb.getChildren().addAll(cB, label);
-			
-			return vb;
-
-		}
-
 	}
 
 }
