@@ -14,13 +14,7 @@ public class CenterPane extends GridPane {
 
 	public CenterPane() {
 		int id = 1;
-		Image img = new Image("ist.png");
-		Image img1 = new Image("mersin.png");
-		Image img2 = new Image("city1.png");
-		Image img3 = new Image("city2.png");
-		Image img4 = new Image("city3.png");
-		Image img5 = new Image("city4.png");
-		Image[] imgarr = { img, img1, img2, img3, img4, img5 };
+		
 		// Anlamadigim bir hata veriyordu boyle yapinca duzeldi
 		// CityButton icin innerclass actim orada gormesi icn constructorun disina aldim
 		// >> sonra gerek kalmadigini anlayip tekrar iceri aldim
@@ -40,21 +34,12 @@ public class CenterPane extends GridPane {
 
 				add(square, col, row);
 
-				if (id == 14) {
-					CityButton cB = new CityButton("Istanbul", imgarr[(int) (Math.random() * 6)]);
-					add(cB.cityButton(), 3, 1);
-				}
-				if (id == 62) {
-					CityButton cB = new CityButton("Mersin", imgarr[(int) (Math.random() * 6)]);
-					add(cB.cityButton(), 1, 6);
-				}
-				if (id == 89) {
-					CityButton cB = new CityButton("Van", imgarr[(int) (Math.random() * 6)]);
-					add(cB.cityButton(), 8, 8);
-				}
+				
 				id++;
 			}
 		}
 	}
+}	
+	
 
-}
+
