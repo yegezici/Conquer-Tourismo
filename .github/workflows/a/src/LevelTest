@@ -1,0 +1,8 @@
+import java.io.FileNotFoundException;
+
+public class LevelTest {
+	public static void main(String[] args) throws FileNotFoundException {
+		Level level = new Level("level1.txt");
+		level.readingFile();
+	}
+}
