@@ -1,6 +1,6 @@
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,97 +8,93 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class CenterPane extends GridPane {
-    int rectangleCount = 10;
+	int rectangleCount = 10;
+	Image img = new Image("ist.png");
+	Image img1 = new Image("mersin.png");
+	Image img2 = new Image("city1.png");
+	Image img3 = new Image("city2.png");
+	Image img4 = new Image("city3.png");
+	Image img5 = new Image("city4.png");
+	Image[] imgarr = { img, img1, img2, img3, img4, img5 };
+	// Anlamadigim bir hata veriyordu boyle yapinca duzeldi
+	// CityButton icin innerclass actim orada gormesi icn constructorun disina aldim
 
-    public CenterPane() {
-        int id = 1;
-        Image img = new Image("ist.png");
-        Image img1 = new Image("mersin.png");
-        Image img2 = new Image("city1.png");
-        Image img3 = new Image("city2.png");
-        Image img4 = new Image("city3.png");
-        Image img5 = new Image("city4.png");
-        
-        Image[] imgarr = new Image[6];
-        imgarr[0] = img;
-        imgarr[1] = img1;
-        imgarr[2] = img2;
-        imgarr[3] = img3;
-        imgarr[4] = img4;
-        imgarr[5] = img5;
-        
-        
-        
-        for (int row = 0; row < rectangleCount; row++) {
-            for (int col = 0; col < rectangleCount; col++) {
-                Rectangle square = new Rectangle();
-                square.widthProperty().bind(widthProperty().divide(10).subtract(10));
-                square.heightProperty().bind(heightProperty().divide(10).subtract(10));;
-                square.setFill(Color.TRANSPARENT);
-                square.setId(String.valueOf(id));
-              //square.setStroke(Color.BLACK);
+	public CenterPane() {
+		int id = 1;
 
-                add(square, col, row);
+		for (int row = 0; row < rectangleCount; row++) {
+			for (int col = 0; col < rectangleCount; col++) {
+				Rectangle square = new Rectangle();
+				square.widthProperty().bind(widthProperty().divide(10).subtract(10));
+				square.heightProperty().bind(heightProperty().divide(10).subtract(10));
+				;
+				// RENKSIZ OLMASI ICIN YAZDIM
+				square.setFill(Color.TRANSPARENT);
+				square.setId(String.valueOf(id));
 
-                if (id == 14) {
-                	
-                    Label label = new Label("Istanbul");
-                    label.setAlignment(Pos.BOTTOM_CENTER);
-                    label.setFont(Font.font("Arial" , FontWeight.BOLD , 12));
-                   // add(label, 3, 1);
-                    
-                    label.toFront();
-                    //label.setPadding(new Insets(0,0,0,15));
-                    
-                    ImageView iv = new ImageView(imgarr[(int)(Math.random() * 6)]);
-                    iv.setFitHeight(35);
-                    iv.setFitWidth(35);
-                   // add(iv, 3, 1);
-                    VBox vb = new VBox(5);
-                    vb.getChildren().addAll(iv, label);
-                    vb.setAlignment(Pos.CENTER);
-                    add(vb, 3, 1);
-                    
-                    
-                    
-                }
-                if (id == 62) {
-                    Label label = new Label("Mersin");
-                    add(label, 1, 6);
-                    setPadding(new Insets(15,15,15,15));
-                    
-                    ImageView iv = new ImageView(imgarr[(int)(Math.random() * 6)]);
-                    iv.setFitHeight(35);
-                    iv.setFitWidth(35);
-                   // add(iv, 3, 1);
-                    VBox vb = new VBox(5);
-                    vb.getChildren().addAll(iv, label);
-                    vb.setAlignment(Pos.CENTER);
-                    add(vb, 1, 6);
-                }
-                if (id == 89) {
-                    Label label = new Label("Van");
-                    add(label, 8, 8);
-                    setPadding(new Insets(15,15,15,15));
-                    
-                    ImageView iv = new ImageView(imgarr[(int)(Math.random() * 6)]);
-                    iv.setFitHeight(35);
-                    iv.setFitWidth(35);
-                   // add(iv, 3, 1);
-                    VBox vb = new VBox(5);
-                    vb.getChildren().addAll(iv, label);
-                    vb.setAlignment(Pos.CENTER);
-                    add(vb, 8, 8);
-                }
+				add(square, col, row);
 
-                id++;
-            }
-        }
-    }
+				if (id == 14) {
+					CityButton cB = new CityButton("Istanbul", imgarr[(int) (Math.random() * 6)]);
+					add(cB.cityButton(), 3, 1);
+				}
+				if (id == 62) {
+					CityButton cB = new CityButton("Mersin", imgarr[(int) (Math.random() * 6)]);
+					add(cB.cityButton(), 1, 6);
+				}
+				if (id == 89) {
+					CityButton cB = new CityButton("Van", imgarr[(int) (Math.random() * 6)]);
+					add(cB.cityButton(), 8, 8);
+				}
+				id++;
+			}
+		}
+	}
 
-	
+	class CityButton {
+		String name;
+		Image img;
+
+		CityButton() {
+
+		}
+
+		CityButton(String name, Image img) {
+			this.name = name;
+			this.img = img;
+		}
+
+		public VBox cityButton() {
+
+			Button cB = new Button();
+			cB.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+			// çalışmasını görmek için yazdım
+			cB.setOnAction(e -> {
+				System.out.println("cB clicked");
+			});
+			
+			//Direkt kopyaladim burayi
+			Label label = new Label(this.name);
+			label.setAlignment(Pos.BOTTOM_CENTER);
+//			label.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+			label.toFront();
+
+			VBox vb = new VBox(1);
+			vb.setAlignment(Pos.CENTER);
+
+			ImageView iv = new ImageView(imgarr[(int) (Math.random() * 6)]);
+			iv.setFitHeight(35);
+			iv.setFitWidth(35);
+
+			cB.setGraphic(iv);
+			vb.getChildren().addAll(cB, label);
+			
+			return vb;
+
+		}
+
+	}
+
 }
