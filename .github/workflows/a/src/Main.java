@@ -41,7 +41,7 @@ public class Main extends Application {
 				   root.add(iv, (lvl.fixedCells.get(b)%10) - 1, (lvl.fixedCells.get(b))/10);
 		           b++;
 		        }
-		        if(lvl.cities.get(a).getLocId() == i ) {
+		        if(lvl.cities.get(a).getLocId() == i ) {  //koordinatların tam olması için 1 den çıkartmıyoruz
 		        CityButton cB = new CityButton(lvl.cities.get(a).getName(), imgarr[(int) (Math.random() * 6)],
 		        		(lvl.cities.get(a).getLocId()%10==0 ? (lvl.cities.get(a).getLocId()%10) + 8 : (lvl.cities.get(a).getLocId()%10)),
 		        		(lvl.cities.get(a).getLocId()%10 == 0) ? (lvl.cities.get(a).getLocId()/10)  : (lvl.cities.get(a).getLocId())/10+1);
