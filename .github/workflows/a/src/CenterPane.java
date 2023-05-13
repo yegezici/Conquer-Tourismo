@@ -11,19 +11,20 @@ import javafx.scene.shape.Rectangle;
 
 public class CenterPane extends GridPane {
 	int rectangleCount = 10;
-	Image img = new Image("ist.png");
-	Image img1 = new Image("mersin.png");
-	Image img2 = new Image("city1.png");
-	Image img3 = new Image("city2.png");
-	Image img4 = new Image("city3.png");
-	Image img5 = new Image("city4.png");
-	Image[] imgarr = { img, img1, img2, img3, img4, img5 };
-	// Anlamadigim bir hata veriyordu boyle yapinca duzeldi
-	// CityButton icin innerclass actim orada gormesi icn constructorun disina aldim
+
 
 	public CenterPane() {
 		int id = 1;
-
+		Image img = new Image("ist.png");
+		Image img1 = new Image("mersin.png");
+		Image img2 = new Image("city1.png");
+		Image img3 = new Image("city2.png");
+		Image img4 = new Image("city3.png");
+		Image img5 = new Image("city4.png");
+		Image[] imgarr = { img, img1, img2, img3, img4, img5 };
+		// Anlamadigim bir hata veriyordu boyle yapinca duzeldi
+		// CityButton icin innerclass actim orada gormesi icn constructorun disina aldim
+		//>> sonra gerek kalmadigini anlayip tekrar iceri aldim
 		for (int row = 0; row < rectangleCount; row++) {
 			for (int col = 0; col < rectangleCount; col++) {
 				Rectangle square = new Rectangle();
@@ -84,7 +85,7 @@ public class CenterPane extends GridPane {
 			VBox vb = new VBox(1);
 			vb.setAlignment(Pos.CENTER);
 
-			ImageView iv = new ImageView(imgarr[(int) (Math.random() * 6)]);
+			ImageView iv = new ImageView(this.img);
 			iv.setFitHeight(35);
 			iv.setFitWidth(35);
 
