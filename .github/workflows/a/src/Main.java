@@ -39,8 +39,11 @@ public class Main extends Application {
 		        }
 		        if(lvl.cities.get(a).getLocId() == i ) {
 		        CityButton cB = new CityButton(lvl.cities.get(a).getName(), imgarr[(int) (Math.random() * 6)]);
-				root.add(cB.cityButton(), (lvl.cities.get(a).getLocId()%10) - 1, (lvl.cities.get(a).getLocId()/10));
-		        row = 0;
+				if(lvl.cities.get(a).getLocId()%10 == 0) {
+					root.add(cB.cityButton(), (lvl.cities.get(a).getLocId()%10) +9, (lvl.cities.get(a).getLocId()/10)-1);
+				}else {
+		        root.add(cB.cityButton(), (lvl.cities.get(a).getLocId()%10)- 1, (lvl.cities.get(a).getLocId()/10));
+				}row = 0;
 		        col = 0;
 		        a++;
 		        i = 0;
@@ -60,7 +63,7 @@ public class Main extends Application {
         BottomPane bp = new BottomPane();
         String[] lvlarr = {"level1.txt","level2.txt","level3.txt","level4.txt","level5.txt"};
        
-		File name = new File(lvlarr[3]);
+		File name = new File(lvlarr[4]);
 		NewLevel level = new NewLevel(name);
 		level.readingFile();							
 	    initializeCenterBoard(level, root);
