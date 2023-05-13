@@ -25,6 +25,8 @@ public class CenterPane extends GridPane {
 		// CityButton icin innerclass actim orada gormesi icn constructorun disina aldim
 		// >> sonra gerek kalmadigini anlayip tekrar iceri aldim
 		//En son komple ayrildi
+		//CityButton diye class var githubda
+		
 
 		for (int row = 0; row < rectangleCount; row++) {
 			for (int col = 0; col < rectangleCount; col++) {
