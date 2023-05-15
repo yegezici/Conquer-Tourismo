@@ -15,16 +15,19 @@ public class Direction extends Line{
 
 
 	
-	public StackPane createRowLine() {
+	public Line createRowLine() {
 		Line line = new Line(0,0,20,0);
-		line.setStrokeWidth(25);
+		line.setStrokeWidth(7);
 		line.setStroke(Color.GREEN);
-		StackPane stackPane = new StackPane();
-		stackPane.getChildren().add(line);
 		
-		return stackPane;
-		
-	
+		return line;
 	}
-	
+	public Line createColLine() {
+		Line line = new Line(0,20,0,0);
+		line.setStrokeWidth(7);
+		line.setStroke(Color.GREEN);
+		
+		return line;
+	}
+
 }
