@@ -1,3 +1,4 @@
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -10,20 +11,24 @@ public class Direction extends Line{
 
 
 	Direction() {
-		createRowLine();
+		
 	}
 
 
 	
-	public Line createRowLine() {
-		Line line = new Line(0,0,20,0);
-		line.setStrokeWidth(7);
-		line.setStroke(Color.GREEN);
-		
-		return line;
+	public Pane createRowLine() {
+	    Pane pane = new Pane();
+	    Line line = new Line(0,0,50,0);
+	    line.setStrokeWidth(7);
+	    line.setStroke(Color.GREEN);
+	    pane.getChildren().add(line);
+	    pane.setPrefWidth(50);
+	    pane.setPrefHeight(7);
+	    return pane;
 	}
+
 	public Line createColLine() {
-		Line line = new Line(0,20,0,0);
+		Line line = new Line(0,49,0,0);
 		line.setStrokeWidth(7);
 		line.setStroke(Color.GREEN);
 		
