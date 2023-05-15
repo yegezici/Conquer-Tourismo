@@ -4,15 +4,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class CityButton {
 	String name;
 	Image img;
-  //  int[] points = new int[4];
-    ArrayList<Integer> points = new ArrayList<Integer>(); 
-    int colIndex = 0, rowIndex = 0, endColIndex = 0, endRowIndex = 0;
+	static ArrayList<Integer> points = new ArrayList<Integer>();
+	int colIndex = 0, rowIndex = 0;
+	int endColIndex = 0, endRowIndex = 0;
+
 	CityButton() {
 
 	}
@@ -24,52 +28,68 @@ public class CityButton {
 		this.rowIndex = rowIndex;
 	}
 
-	public VBox cityButton() {
-        
+	public BorderPane cityButton(GridPane pane) {
 		Button cB = new Button();
-	    cB.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
-	    
-	    GridPane.setColumnIndex(cB, colIndex);
-	    GridPane.setRowIndex(cB, rowIndex);
-	    cB.setOnAction(e -> {              //buralardan pek emin değilim mesafe formülünü yazdım ama yanlış gibi bir bakarsın koordinatları tam alıyor
-	        points.add(colIndex);
-	        points.add(rowIndex);
-	    });
-	        if(points.size() == 2) {
-	        	endColIndex = colIndex;
-	        	endRowIndex = rowIndex;
-	        }
-	          points.add(endColIndex);
-        	  points.add(endRowIndex);
-	       
-	      cB.setOnAction(e -> {
-	           System.out.println(calculateDistance(rowIndex, colIndex, endRowIndex, endColIndex));    	  
-	      });
-	       
-	    
+		cB.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+		cB.setOnAction(e -> {
+			// row index aslinda y degeri o yuzden ilk colu almamiz laizm yerlerini
+			// degistirdim
+			points.add(colIndex);
+			points.add(rowIndex);
 
-		// Direkt kopyaladim burayi -- 
-		Label label = new Label(this.name);
+			System.out.println(points.get(0));
+			System.out.println(points.get(1) + "\n------------");
+
+			if (points.size() == 4) {
+				System.out.println(points.get(2));
+				System.out.println(points.get(3) + "\n------------");
+				endRowIndex = points.get(2);
+				endColIndex = points.get(3);
+
+				// Buraya array yerine endrowindex felan koyunca 0 veriyor sonucu
+				// Aslinda tutuyor degerleri asagidaki 31li 3 kodu calistirinca sonuc gosteriyor
+				// fakat anlamadim
+				System.out.println(calculateDistance(points.get(0), points.get(1), points.get(2), points.get(3)));
+
+			}
+
+			if (points.size() == 4) {
+				for (int i = points.get(0) - 1; i >= points.get(2); i--) {
+					Direction d = new Direction();
+					pane.add(d.createRowLine(), 1, 1);
+				}
+				if (points.get(0) > points.get(2)) {
+					if (points.get(1) < points.get(3)) {
+
+					}
+				}
+			}
+
+			 
+		});
+		Label label = new Label("  " + this.name);
 		label.setAlignment(Pos.BOTTOM_CENTER);
-//			label.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+
 		label.toFront();
 
-		VBox vb = new VBox(1);
-		vb.setAlignment(Pos.CENTER);
+		BorderPane bP = new BorderPane();
 
 		ImageView iv = new ImageView(this.img);
 		iv.setFitHeight(35);
 		iv.setFitWidth(35);
 
 		cB.setGraphic(iv);
-		vb.getChildren().addAll(cB, label);
+		VBox vB = new VBox(1);
+		vB.getChildren().addAll(cB, label);
+		bP.setCenter(vB);
 
-		return vb;
+		return bP;
 
 	}
-	
-	public int calculateDistance(int x1,int y1,int x2,int y2) {
-	 return (int) Math.ceil(Math.sqrt(Math.pow((x1-x2), 2) + Math.pow(y1-y2, 2)));
+
+	public int calculateDistance(int x1, int y1, int x2, int y2) {
+		return (int) (Math.ceil(Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2))));
+
 	}
 
 }
