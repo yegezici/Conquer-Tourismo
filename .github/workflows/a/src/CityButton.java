@@ -21,11 +21,13 @@ public class CityButton {
 
 	}
 
-	CityButton(String name, Image img, int rowIndex, int colIndex) {
+	CityButton(String name, Image img, int colIndex, int rowIndex) {
 		this.name = name;
 		this.img = img;
 		this.colIndex = colIndex;
 		this.rowIndex = rowIndex;
+		
+		
 	}
 
 	public BorderPane cityButton(GridPane pane) {
@@ -34,39 +36,30 @@ public class CityButton {
 		cB.setOnAction(e -> {
 			// row index aslinda y degeri o yuzden ilk colu almamiz laizm yerlerini
 			// degistirdim
-			points.add(colIndex);
-			points.add(rowIndex);
-
-			System.out.println(points.get(0));
-			System.out.println(points.get(1) + "\n------------");
-
+			points.add(colIndex-1);
+			points.add(rowIndex-1);
+			for(int i = 0; i < points.size(); i++)
+				System.out.print(points.get(i) +"-");
+			
 			if (points.size() == 4) {
-				System.out.println(points.get(2));
-				System.out.println(points.get(3) + "\n------------");
-				endRowIndex = points.get(2);
-				endColIndex = points.get(3);
-
-				// Buraya array yerine endrowindex felan koyunca 0 veriyor sonucu
-				// Aslinda tutuyor degerleri asagidaki 31li 3 kodu calistirinca sonuc gosteriyor
-				// fakat anlamadim
-				System.out.println(calculateDistance(points.get(0), points.get(1), points.get(2), points.get(3)));
-
-			}
-
-			if (points.size() == 4) {
-				for (int i = points.get(0) - 1; i >= points.get(2); i--) {
-					Direction d = new Direction();
-					pane.add(d.createRowLine(), 1, 1);
-				}
-				if (points.get(0) > points.get(2)) {
+				if ((points.get(0) > points.get(2))) {
 					if (points.get(1) < points.get(3)) {
+						for (int i = points.get(0) - 1; i >= points.get(2); i--) {
+							Direction d = new Direction();
+							pane.add(d.createRowLine(), i, points.get(1));
+						
 
+						}
 					}
+				
 				}
 			}
+		
 
-			 
+			
 		});
+	
+		
 		Label label = new Label("  " + this.name);
 		label.setAlignment(Pos.BOTTOM_CENTER);
 
