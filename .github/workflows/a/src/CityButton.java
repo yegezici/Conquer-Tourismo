@@ -16,6 +16,7 @@ public class CityButton {
 	static ArrayList<Integer> points = new ArrayList<Integer>();
 	int colIndex = 0, rowIndex = 0;
 	int endColIndex = 0, endRowIndex = 0;
+	int sRI, bRI, sCI, bCI;
 
 	CityButton() {
 
@@ -33,27 +34,55 @@ public class CityButton {
 	public BorderPane cityButton(GridPane pane) {
 		Button cB = new Button();
 		cB.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+		
+		
 		cB.setOnAction(e -> {
 			// row index aslinda y degeri o yuzden ilk colu almamiz laizm yerlerini
 			// degistirdim
 			points.add(colIndex-1);
 			points.add(rowIndex-1);
+			
 			for(int i = 0; i < points.size(); i++)
 				System.out.print(points.get(i) +"-");
 			
+			
+				
+			
+			
 			if (points.size() == 4) {
 				if ((points.get(0) > points.get(2))) {
-					if (points.get(1) < points.get(3)) {
-						for (int i = points.get(0) - 1; i >= points.get(2); i--) {
+					bRI = points.get(0);
+					sRI = points.get(2);
+					
+				}else {
+					bRI = points.get(2);
+					sRI = points.get(0);
+				}
+				if ((points.get(1) > points.get(3))) {
+					bCI = points.get(1);
+					sCI = points.get(3);
+					
+				}else {
+					bCI = points.get(3);
+					sCI = points.get(1);
+				}
+						for (int i = bRI - 1; i >= sRI; i--) {
 							Direction d = new Direction();
 							pane.add(d.createRowLine(), i, points.get(1));
-						
-
 						}
+						for (int i = sCI ; i < bCI ; i++) {
+							Direction d = new Direction();
+							pane.add(d.createColLine(), points.get(2), i);		
+						}
+						
+						System.out.println(calculateDistance(points.get(0), points.get(1), points.get(2), points.get(3)));
+						 points.clear();
+						
 					}
 				
-				}
-			}
+				
+			
+				  
 		
 
 			
