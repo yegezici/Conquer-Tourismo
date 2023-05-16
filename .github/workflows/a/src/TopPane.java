@@ -27,9 +27,9 @@ public class TopPane extends HBox{
 		getChildren().addAll(t1,t2,b);
 		setStyle("-fx-border-color: black");
 		b.setOnAction(e -> {
-			System.out.println("a");
+			//System.out.println("a");
 			level++;
-			t1.setText("LEVEL : " + level);
+			t1.setText("LEVEL : " + level); //artık tuşa bastığında level sayısı da artıyor
 		});
   }
 	
