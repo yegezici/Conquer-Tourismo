@@ -7,8 +7,8 @@ import javafx.scene.text.Text;
 
 public class TopPane extends HBox{
 	Button b = new Button("Next Level >>");
-	int level = 1 ;
-	 Text t1 = new Text("LEVEL : " + level);
+	static int currentLevel = 0 ;
+	Text t1 = new Text("LEVEL : " + (currentLevel+1));
   public TopPane() {
 	  int currentScore = 0, levelScore = 0;
 	  spacingProperty().bind(widthProperty().divide(3));
@@ -27,10 +27,12 @@ public class TopPane extends HBox{
 		getChildren().addAll(t1,t2,b);
 		setStyle("-fx-border-color: black");
 		b.setOnAction(e -> {
-			//System.out.println("a");
-			level++;
-			t1.setText("LEVEL : " + level); //artık tuşa bastığında level sayısı da artıyor
-		});
+				//System.out.println("a");
+	        	
+			currentLevel++;
+	        	
+	            
+			});
   }
 	
 }
