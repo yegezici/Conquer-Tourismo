@@ -17,7 +17,7 @@ public class Main extends Application {
     	primaryStage.setTitle("Term Project");
     	Menu menu = new Menu();
     	Scene scene = new Scene(menu, 500, 500);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
     	primaryStage.setScene(scene);
     	TopPane tp = new TopPane();
 	    
@@ -32,8 +32,9 @@ public class Main extends Application {
           	NewLevel level = new NewLevel(name);
     	    level.readingFile();	
        	    CenterPane root = new CenterPane(level);
-           
-            BottomPane bp = new BottomPane();
+       	    level.setCenterPane(root);
+       
+       	    BottomPane bp = new BottomPane(level);
         	BorderPane br = new BorderPane();
         	br.setCenter(root);
             root.setAlignment(Pos.CENTER);
@@ -60,7 +61,8 @@ public class Main extends Application {
           	NewLevel level = new NewLevel(name);
     	    level.readingFile();	
        	    CenterPane root = new CenterPane(level);      
-            BottomPane bp = new BottomPane();
+       	    level.setCenterPane(root);
+       	    BottomPane bp = new BottomPane(level);
         	BorderPane br = new BorderPane();
         	br.setCenter(root);
             root.setAlignment(Pos.CENTER);
@@ -80,7 +82,8 @@ public class Main extends Application {
           	NewLevel level = new NewLevel(name);
     	    level.readingFile();	
        	    CenterPane root = new CenterPane(level);      
-            BottomPane bp = new BottomPane();
+       	    level.setCenterPane(root);
+       	    BottomPane bp = new BottomPane(level);
             BorderPane br = new BorderPane();
         	br.setCenter(root);
             root.setAlignment(Pos.CENTER);
