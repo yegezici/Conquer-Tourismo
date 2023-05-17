@@ -128,7 +128,7 @@ public class CityButton {
 		for(int i = 0; i < startCity.size(); i++) {
 		 s += String.format("%s > %s \n", startCity.get(i),endCity.get(i));
 	}
-		return s;
+		return s;}
 
 	public static CityButton getNextCity() {
 		return nextCity;
