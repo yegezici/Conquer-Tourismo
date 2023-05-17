@@ -18,7 +18,7 @@ public class CenterPane extends GridPane {
 		
 	}
 	
-	public CenterPane(NewLevel lvl) {
+	public CenterPane(NewLevel lvl, Text text) {
 		level = lvl;
 		int id = 1;
 		
@@ -72,10 +72,10 @@ public class CenterPane extends GridPane {
 									: (lvl.cities.get(a).getLocId()) / 10 + 1);
 					forNextCity = cB;
 					if (lvl.cities.get(a).getLocId() % 10 == 0) {
-						add(cB.cityButton(this), (lvl.cities.get(a).getLocId() % 10) + 9,
+						add(cB.cityButton(this, botText), (lvl.cities.get(a).getLocId() % 10) + 9,
 								(lvl.cities.get(a).getLocId() / 10) - 1);
 					} else {
-						add(cB.cityButton(this), (lvl.cities.get(a).getLocId() % 10) - 1,
+						add(cB.cityButton(this, botText), (lvl.cities.get(a).getLocId() % 10) - 1,
 								(lvl.cities.get(a).getLocId() / 10));
 					}
 					row = 0;
