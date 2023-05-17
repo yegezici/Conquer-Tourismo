@@ -83,9 +83,9 @@ public class Main extends Application {
           	NewLevel level = new NewLevel(name);
     	    level.readingFile();
 	     Text text = new Text("");
-       	    CenterPane root = new CenterPane(level);      
+       	    CenterPane root = new CenterPane(level, text);      
        	    level.setCenterPane(root);
-       	    BottomPane bp = new BottomPane(level);
+       	    BottomPane bp = new BottomPane(text, level);
             BorderPane br = new BorderPane();
         	br.setCenter(root);
             root.setAlignment(Pos.CENTER);
