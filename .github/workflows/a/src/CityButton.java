@@ -76,7 +76,7 @@ public class CityButton {
 			 * colLinePoints.add(points.get(2)); colLinePoints.add(i); }
 			 * 
 			 * System.out.println(calculateDistance(points.get(0), points.get(1),
-			 * points.get(2), points.get(3))); }
+			 * points.get(2), points.get(3))); botText.setText(getCityInformation(points.get(0), points.get(1), points.get(2), points.get(3)) + "\n" + getPasssengerInformation());}
 			 * 
 			 * if (points.size() == 6) { ArrayList<Node> nodesToRemove = new ArrayList<>();
 			 * for (int i = 0; i < rowLinePoints.size(); i++) { for (Node n :
@@ -119,6 +119,16 @@ public class CityButton {
 		return (int) (Math.ceil(Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2))));
 
 	}
+	public String getCityInformation(int x1, int y1, int x2, int y2) {
+        return String.format("%s (City ID = %d, Distance = %d, Vehicle Capacity = %d)",
+                lvl.cities.get(index).getName(), lvl.cities.get(index).getId(), calculateDistance(x1, y1, x2, y2), lvl.vehicles.get(0).getCapacity());
+    }
+	public String getPasssengerInformation() {
+		String s ="";
+		for(int i = 0; i < startCity.size(); i++) {
+		 s += String.format("%s > %s \n", startCity.get(i),endCity.get(i));
+	}
+		return s;
 
 	public static CityButton getNextCity() {
 		return nextCity;
