@@ -18,7 +18,7 @@ public class CenterPane extends GridPane {
 		
 	}
 	
-	public CenterPane(NewLevel lvl, Text text) {
+	public CenterPane(NewLevel lvl, Text botText) {
 		level = lvl;
 		int id = 1;
 		
