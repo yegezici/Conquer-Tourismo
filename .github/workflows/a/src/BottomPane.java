@@ -14,7 +14,7 @@ public class BottomPane extends BorderPane {
 	NewLevel level;
 	IntegerProperty propertyValue = new SimpleIntegerProperty(0);
 	
-	public BottomPane(Text text, NewLevel level) {
+	public BottomPane(Text text,NewLevel level) {
 		this.level = level;
 		DriveButton b = new DriveButton(level);
 		b.setText("DRIVE");
@@ -29,7 +29,7 @@ public class BottomPane extends BorderPane {
 		score.setTextAlignment(TextAlignment.CENTER);
 		setRight(b);
 		
-		
+		// setLeft();
  
         Label propertyLabel = new Label();
         propertyLabel.textProperty().bind(Bindings.format("Property Value: %2d",propertyValue));
@@ -52,7 +52,7 @@ public class BottomPane extends BorderPane {
 			propertyValue = level.getCenterPane().getForNextCity().loc.calculateScore();
 			System.out.println(propertyValue);
 			Label propertyLabel = new Label();
-	        propertyLabel.textProperty().bind(Bindings.format("Property Value: %2d",propertyValue));
+	        propertyLabel.textProperty().bind(Bindings.format("Property Value: %d",propertyValue));
 	        setTop(propertyLabel);
 		}
 	}
