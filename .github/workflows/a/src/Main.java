@@ -59,7 +59,8 @@ public class Main extends Application {
         	System.out.println(index);
             File name = new File(lvlarr[index]);
           	NewLevel level = new NewLevel(name);
-    	    level.readingFile();	
+    	    level.readingFile();
+	    Text text = new Text("");
        	    CenterPane root = new CenterPane(level);      
        	    level.setCenterPane(root);
        	    BottomPane bp = new BottomPane(level);
@@ -80,7 +81,8 @@ public class Main extends Application {
         	SaveAndLoad sl = new SaveAndLoad(lvlarr[currentLevel]);
             File name = new File(lvlarr[currentLevel]);
           	NewLevel level = new NewLevel(name);
-    	    level.readingFile();	
+    	    level.readingFile();
+	     Text text = new Text("");
        	    CenterPane root = new CenterPane(level);      
        	    level.setCenterPane(root);
        	    BottomPane bp = new BottomPane(level);
