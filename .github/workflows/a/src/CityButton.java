@@ -33,12 +33,24 @@ public class CityButton {
 
 	}
 
-	CityButton(String name, Image img, int colIndex, int rowIndex) {
+	CityButton(String name, Image img, int colIndex, int rowIndex, NewLevel lvl,int index) {
 		this.name = name;
 		this.img = img;
 		this.colIndex = colIndex;
 		this.rowIndex = rowIndex;
-
+		this.lvl = lvl;
+		this.index = index;
+		for(int i = 0; i < lvl.cities.size();i++) {
+			if(lvl.cities.get(i).getId() == lvl.vehicles.get(0).getCityId())
+				indexOfCity = i;
+		}
+		for(int i = 0; i < lvl.cities.size(); i++) {
+			for(int  j = 0; j < lvl.passengers.size();j++) {
+			if(lvl.cities.get(i).getId() == lvl.passengers.get(j).getStartId()) 
+				startCity.add(lvl.cities.get(i).getName());
+			if(lvl.cities.get(i).getId() == lvl.passengers.get(j).getDestId()) 
+				endCity.add(lvl.cities.get(i).getName());
+		}}
 	}
 
 	public BorderPane cityButton(CenterPane pane) {
