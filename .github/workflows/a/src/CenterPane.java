@@ -1,4 +1,3 @@
-
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -104,7 +103,7 @@ public class CenterPane extends StackPane {
 
 	public void createVehicle(NewLevel lvl) {
 		Vehicle vehicle = lvl.vehicles.get(0);
-		Image car;	
+		/*Image car;	
 		if (lvl.vehicles.get(0).getCapacity() <= 5) {
 			car = new Image("minivan.png");
 			imageView = new ImageView(car);
@@ -117,7 +116,7 @@ public class CenterPane extends StackPane {
 		}
 
 		imageView.setFitWidth(35);
-		imageView.setFitHeight(35);
+		imageView.setFitHeight(35);*/
 		int location = 0;
 		for (int i = 0; i < lvl.cities.size(); i++) {
 			if (vehicle.getCityId() == lvl.cities.get(i).getId())
@@ -125,7 +124,7 @@ public class CenterPane extends StackPane {
 		}
 		vx = location % 10 - 1;
 		vy = location / 10;
-		pane.add(imageView, vx, vy);
+		pane.add(vehicle.imageView, vx, vy);
 	}
 
 	public void setVx(int vx) {
