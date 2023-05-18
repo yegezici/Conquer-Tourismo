@@ -1,10 +1,9 @@
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -16,7 +15,7 @@ public class BottomPane extends BorderPane {
 	
 	public BottomPane(NewLevel level) {
 		this.level = level;
-		DriveButton b = new DriveButton(level);
+		Button b = new Button();
 		b.setText("DRIVE");
 		b.setStyle(
 				"-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-size: 24px; -fx-font-family: Arial;"
@@ -46,13 +45,14 @@ public class BottomPane extends BorderPane {
 	class DriveSetOnAction implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
-			level.getCenterPane().getChildren().remove(level.getCenterPane().imageView);
-			level.getCenterPane().add(level.getCenterPane().imageView, CityButton.getNextCity().colIndex - 1,
+			level.getCenterPane().pane.getChildren().remove(level.vehicles.get(0).imageView);
+			level.getCenterPane().pane.add(level.vehicles.get(0).imageView, CityButton.getNextCity().colIndex - 1,
 					CityButton.getNextCity().rowIndex - 1);
 			propertyValue = level.getCenterPane().getForNextCity().loc.calculateScore();
 			System.out.println(propertyValue);
 			Label propertyLabel = new Label();
 	        propertyLabel.textProperty().bind(Bindings.format("Property Value: %2d",propertyValue));
+	        System.out.println("buton");
 	        setTop(propertyLabel);
 		}
 	}
