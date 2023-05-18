@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -30,8 +30,9 @@ public class Main extends Application {
         	String[] lvlarr = {"level1.txt","level2.txt","level3.txt","level4.txt","level5.txt"};
             File name = new File(lvlarr[currentLevel]);
           	NewLevel level = new NewLevel(name);
-    	    level.readingFile();	
-       	    CenterPane root = new CenterPane(level);
+    	    level.readingFile();
+    	    Text text = new Text();
+       	    CenterPane root = new CenterPane(level,text);
        	    level.setCenterPane(root);
        
        	    BottomPane bp = new BottomPane(level);
@@ -59,9 +60,9 @@ public class Main extends Application {
         	System.out.println(index);
             File name = new File(lvlarr[index]);
           	NewLevel level = new NewLevel(name);
-    	    level.readingFile();
-	    Text text = new Text("");
-       	    CenterPane root = new CenterPane(level);      
+    	    level.readingFile();	
+    	    Text text = new Text();
+       	    CenterPane root = new CenterPane(level,text);     
        	    level.setCenterPane(root);
        	    BottomPane bp = new BottomPane(level);
         	BorderPane br = new BorderPane();
@@ -81,11 +82,11 @@ public class Main extends Application {
         	SaveAndLoad sl = new SaveAndLoad(lvlarr[currentLevel]);
             File name = new File(lvlarr[currentLevel]);
           	NewLevel level = new NewLevel(name);
-    	    level.readingFile();
-	     Text text = new Text("");
-       	    CenterPane root = new CenterPane(level, text);      
+    	    level.readingFile();	
+    	    Text text = new Text();
+       	    CenterPane root = new CenterPane(level,text);    
        	    level.setCenterPane(root);
-       	    BottomPane bp = new BottomPane(text, level);
+       	    BottomPane bp = new BottomPane(level);
             BorderPane br = new BorderPane();
         	br.setCenter(root);
             root.setAlignment(Pos.CENTER);
