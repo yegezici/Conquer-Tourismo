@@ -1,12 +1,15 @@
 
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-public class CenterPane extends GridPane {
+public class CenterPane extends StackPane {
 	int rectangleCount = 10;
     CityButton cB = new CityButton();
 	CityButton[] buttons;
@@ -16,7 +19,7 @@ public class CenterPane extends GridPane {
 	private int vy;
 	private CityButton forNextCity;
 	ImageView imageView = new ImageView();
-	
+	GridPane pane = new GridPane();
 	public CenterPane() {
 		
 	}
@@ -37,12 +40,12 @@ public class CenterPane extends GridPane {
 				//square.setStroke(Color.BLACK);
 				square.setId(String.valueOf(id));
 
-				add(square, col, row);
+				pane.add(square, col, row);
 
 				id++;
 			}
 		}
-
+		
 		Image img = new Image("ist.png");
 		Image img1 = new Image("mersin.png");
 		Image img2 = new Image("city1.png");
@@ -50,9 +53,6 @@ public class CenterPane extends GridPane {
 		Image img4 = new Image("city3.png");
 		Image img5 = new Image("city4.png");
 		Image img6 = new Image("fixedcellsign.jpg");
-		Image car = new Image("minivan.png");
-		Image minivan = new Image("car.png");
-		Image bus = new Image("bus.png");
 		Image[] imgarr = { img, img1, img2, img3, img4, img5 };
 		int rectangleCount = 10;
 		int i = 0, a = 0, b = 0,index = 0;
@@ -65,7 +65,7 @@ public class CenterPane extends GridPane {
 					ImageView iv = new ImageView(img6);
 					iv.setFitWidth(35);
 					iv.setFitHeight(35);
-					add(iv, (lvl.fixedCells.get(b) % 10) - 1, (lvl.fixedCells.get(b)) / 10);
+					pane.add(iv, (lvl.fixedCells.get(b) % 10) - 1, (lvl.fixedCells.get(b)) / 10);
 					b++;
 				}
 				if (lvl.cities.get(a).getLocId() == i) { // koordinatların tam olması için 1 den çıkartmıyoruz
@@ -76,10 +76,10 @@ public class CenterPane extends GridPane {
 					forNextCity = cB;
 					buttons[index++] =cB;
 					if (lvl.cities.get(a).getLocId() % 10 == 0) {
-						add(cB.cityButton(this,text), (lvl.cities.get(a).getLocId() % 10) + 9,
+						pane.add(cB.cityButton(this,text), (lvl.cities.get(a).getLocId() % 10) + 9,
 								(lvl.cities.get(a).getLocId() / 10) - 1);
 					} else {
-						add(cB.cityButton(this,text), (lvl.cities.get(a).getLocId() % 10) - 1,
+						pane.add(cB.cityButton(this,text), (lvl.cities.get(a).getLocId() % 10) - 1,
 								(lvl.cities.get(a).getLocId() / 10));
 					}
 					row = 0;
@@ -93,6 +93,11 @@ public class CenterPane extends GridPane {
 
 		}
 		createVehicle(lvl);
+		pane.setHgap(0.1);
+		pane.setVgap(0.1);
+		pane.setAlignment(Pos.CENTER);
+		this.getChildren().add(pane);
+		pane.setAlignment(Pos.CENTER);
 	}
 
 
@@ -120,7 +125,7 @@ public class CenterPane extends GridPane {
 		}
 		vx = location % 10 - 1;
 		vy = location / 10;
-		add(imageView, vx, vy);
+		pane.add(imageView, vx, vy);
 	}
 
 	public void setVx(int vx) {
@@ -132,5 +137,26 @@ public class CenterPane extends GridPane {
 	}
 	public CityButton getForNextCity() {
 		return forNextCity;
+	}
+	public void createLine() {
+		System.out.println(31);
+		Line horizontal;
+		Line vertical;
+		if (CityButton.x.size() == 2) {
+			horizontal = new Line(CityButton.x.get(0), CityButton.y.get(0), CityButton.x.get(1), CityButton.y.get(0));
+			vertical = new Line(CityButton.x.get(1), CityButton.y.get(0), CityButton.x.get(1), CityButton.y.get(1));
+			horizontal.setStroke(Color.RED);
+			horizontal.setStrokeWidth(5);
+			vertical.setStroke(Color.RED);
+			vertical.setStrokeWidth(5);
+			pane.getChildren().addAll(horizontal, vertical);
+			CityButton.x.clear();
+			CityButton.y.clear();
+			if (pane.getChildren().contains(horizontal)) {
+				System.out.println("Line created successfully!");
+			} else {
+				System.out.println("Line creation failed!");
+			}
+		}
 	}
 }
