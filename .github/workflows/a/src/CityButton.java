@@ -3,13 +3,11 @@ import java.util.ArrayList;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -18,134 +16,97 @@ public class CityButton {
 	Image img;
 	ArrayList<Integer> rowLinePoints = new ArrayList<>();
 	ArrayList<Integer> colLinePoints = new ArrayList<>();
-	ArrayList<String>  startCity = new ArrayList<>();
-	ArrayList<String>  endCity = new ArrayList<>();
-	private static CityButton nextCity;
+	ArrayList<String> startCity = new ArrayList<>();
+	ArrayList<String> endCity = new ArrayList<>();
 	static ArrayList<Integer> points = new ArrayList<Integer>();
+	private static CityButton nextCity;
+	static int clickCount = 0;
 	int colIndex = 0, rowIndex = 0;
 	int endColIndex = 0, endRowIndex = 0;
 	int sRI, bRI, sCI, bCI;
-	int cityId ,capacity, index= 0, indexOfCity;
-    NewLevel lvl;
-    ArrayList<Double> x = new ArrayList<>();
+	ArrayList<Double> x = new ArrayList<>();
 	ArrayList<Double> y = new ArrayList<>();
 	static CenterPane pane = new CenterPane();
-	//Calculate score icin
+	// Calculate score icin
 	CityButton loc = this;
-    
+	int cityId, capacity, index = 0, indexOfCity;
+	NewLevel lvl;
 
 	CityButton() {
 
 	}
 
-	CityButton(String name, Image img, int colIndex, int rowIndex, NewLevel lvl,int index) {
+	CityButton(String name, Image img, int colIndex, int rowIndex, NewLevel lvl, int index) {
 		this.name = name;
 		this.img = img;
 		this.colIndex = colIndex;
 		this.rowIndex = rowIndex;
 		this.lvl = lvl;
 		this.index = index;
-		for(int i = 0; i < lvl.cities.size();i++) {
-			if(lvl.cities.get(i).getId() == lvl.vehicles.get(0).getCityId())
+		for (int i = 0; i < lvl.cities.size(); i++) {
+			if (lvl.cities.get(i).getId() == lvl.vehicles.get(0).getCityId())
 				indexOfCity = i;
 		}
-		for(int i = 0; i < lvl.cities.size(); i++) {
-			for(int  j = 0; j < lvl.passengers.size();j++) {
-			if(lvl.cities.get(i).getId() == lvl.passengers.get(j).getStartId()) 
-				startCity.add(lvl.cities.get(i).getName());
-			if(lvl.cities.get(i).getId() == lvl.passengers.get(j).getDestId()) 
-				endCity.add(lvl.cities.get(i).getName());
-		}}
+		for (int i = 0; i < lvl.cities.size(); i++) {
+			for (int j = 0; j < lvl.passengers.size(); j++) {
+				if (lvl.cities.get(i).getId() == lvl.passengers.get(j).getStartId())
+					startCity.add(lvl.cities.get(i).getName());
+				if (lvl.cities.get(i).getId() == lvl.passengers.get(j).getDestId())
+					endCity.add(lvl.cities.get(i).getName());
+			}
+		}
 	}
-	
-	
 
 	public BorderPane cityButton(CenterPane pane, Text botText) {
 		Button cB = new Button();
-			
+		CityButton.pane = pane;
 		cB.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
-		
+		cB.setOnMouseClicked(event -> {
+			x.add(event.getX());
+			y.add(event.getY());
+			System.out.println("Mouse clicked at (" + x + ", " + y + ")");
+		});
 		cB.setOnAction(e -> {
-			// row index aslinda y degeri o yuzden ilk colu almamiz laizm yerlerini
-			// degistirdim
 			points.add(colIndex - 1);
 			points.add(rowIndex - 1);
 			nextCity = this;
 			loc = this;
-			
-			for (int i = 0; i < points.size(); i++)
-				System.out.print(points.get(i) + "-");
-			
-			
-
-
+			clickCount++;
 			for (int i = 0; i < points.size(); i++)
 				System.out.print(points.get(i) + "-");
 
-		/*	 if (points.size() == 4) {
-				if ((points.get(0) > points.get(2))) {
-					bRI = points.get(0);
-					sRI = points.get(2);
-
-				} else {
-					bRI = points.get(2);
-					sRI = points.get(0);
-				}
-				if ((points.get(1) > points.get(3))) {
-					bCI = points.get(1);
-					sCI = points.get(3);
-
-				} else {
-					bCI = points.get(3);
-					sCI = points.get(1);
-				}
-				for (int i = bRI - 1; i >= sRI; i--) {
-					Direction d = new Direction();
-					pane.add(d.createRowLine(), i, points.get(1));
-					rowLinePoints.add(i);
-					rowLinePoints.add(points.get(1));
-				}
-				for (int i = sCI; i < bCI; i++) {
-					Direction d = new Direction();
-					pane.add(d.createColLine(), points.get(2), i);
-					colLinePoints.add(points.get(2));
-					colLinePoints.add(i);
-				}
-                
-				System.out.println(calculateDistance(points.get(0), points.get(1), points.get(2), points.get(3)));
-				botText.setText(getCityInformation(points.get(0), points.get(1), points.get(2), points.get(3)) + "\n" + getPasssengerInformation());
-				
-			}*/
-
-			/*if (points.size() == 6) {
-				ArrayList<Node> nodesToRemove = new ArrayList<>();
-				for (int i = 0; i < rowLinePoints.size(); i++) {
-					for (Node n : pane.getChildren()) {
-						if (GridPane.getRowIndex(n) == rowLinePoints.get(1)
-								&& GridPane.getColumnIndex(n) == rowLinePoints.get(i)) {
-							nodesToRemove.add(n);
-						}
-					}
-				}
-				for (int i = 0; i < colLinePoints.size(); i++) {
-					for (Node n : pane.getChildren()) {
-						if (GridPane.getRowIndex(n) == colLinePoints.get(i)
-								&& GridPane.getColumnIndex(n) == colLinePoints.get(1)) {
-							nodesToRemove.add(n);
-						}
-					}
-				}
-				for (Node node : nodesToRemove) {
-					pane.getChildren().remove(node);
-				}
-
-				int x = points.get(4);
-				int y = points.get(5);
-				points.clear();
-				points.add(x);
-				points.add(y);
-			}
-*/
+			/*
+			 * if (points.size() == 4) { if ((points.get(0) > points.get(2))) { bRI =
+			 * points.get(0); sRI = points.get(2);
+			 * 
+			 * } else { bRI = points.get(2); sRI = points.get(0); } if ((points.get(1) >
+			 * points.get(3))) { bCI = points.get(1); sCI = points.get(3);
+			 * 
+			 * } else { bCI = points.get(3); sCI = points.get(1); } for (int i = bRI - 1; i
+			 * >= sRI; i--) { Direction d = new Direction(); pane.add(d.createRowLine(), i,
+			 * points.get(1)); rowLinePoints.add(i); rowLinePoints.add(points.get(1)); } for
+			 * (int i = sCI; i < bCI; i++) { Direction d = new Direction();
+			 * pane.add(d.createColLine(), points.get(2), i);
+			 * colLinePoints.add(points.get(2)); colLinePoints.add(i); }
+			 * 
+			 * System.out.println(calculateDistance(points.get(0), points.get(1),
+			 * points.get(2), points.get(3))); }
+			 * 
+			 * if (points.size() == 6) { ArrayList<Node> nodesToRemove = new ArrayList<>();
+			 * for (int i = 0; i < rowLinePoints.size(); i++) { for (Node n :
+			 * pane.getChildren()) { if (GridPane.getRowIndex(n) == rowLinePoints.get(1) &&
+			 * GridPane.getColumnIndex(n) == rowLinePoints.get(i)) { nodesToRemove.add(n); }
+			 * } } rowLinePoints.clear();
+			 * 
+			 * for (int i = 0; i < colLinePoints.size(); i++) { for (Node n :
+			 * pane.getChildren()) { if (GridPane.getRowIndex(n) == colLinePoints.get(i) &&
+			 * GridPane.getColumnIndex(n) == colLinePoints.get(1)) { nodesToRemove.add(n); }
+			 * } } colLinePoints.clear(); for (Node node : nodesToRemove) {
+			 * pane.getChildren().remove(node); }
+			 * 
+			 * int x = points.get(4); int y = points.get(5); points.clear(); points.add(x);
+			 * points.add(y); }
+			 */
 		});
 
 		Label label = new Label("  " + this.name);
@@ -163,26 +124,16 @@ public class CityButton {
 		VBox vB = new VBox(1);
 		vB.getChildren().addAll(cB, label);
 		bP.setCenter(vB);
-        
+
 		return bP;
 
 	}
 
 	public int calculateDistance(int x1, int y1, int x2, int y2) {
-		return (int)(Math.ceil(Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2))));
+		return (int) (Math.ceil(Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2))));
 
 	}
-	public String getCityInformation(int x1, int y1, int x2, int y2) {
-        return String.format("%s (City ID = %d, Distance = %d, Vehicle Capacity = %d)",
-                lvl.cities.get(index).getName(), lvl.cities.get(index).getId(), calculateDistance(x1, y1, x2, y2), lvl.vehicles.get(0).getCapacity());
-    }
-	public String getPasssengerInformation() {
-		String s ="";
-		for(int i = 0; i < startCity.size(); i++) {
-		 s += String.format("%s > %s \n", startCity.get(i),endCity.get(i));
-	}
-		return s;
-		}
+
 	public static CityButton getNextCity() {
 		return nextCity;
 	}
@@ -197,6 +148,20 @@ public class CityButton {
 		System.out.println(moveScore);
 		points.clear();
 		return returnValue;
-		
+
 	}
-}	
+
+	public String getCityInformation(int x1, int y1, int x2, int y2) {
+		return String.format("%s (City ID = %d, Distance = %d, Vehicle Capacity = %d)", lvl.cities.get(index).getName(),
+				lvl.cities.get(index).getId(), calculateDistance(x1, y1, x2, y2), lvl.vehicles.get(0).getCapacity());
+	}
+
+	public String getPasssengerInformation() {
+		String s = "";
+		for (int i = 0; i < startCity.size(); i++) {
+			s += String.format("%s > %s \n", startCity.get(i), endCity.get(i));
+		}
+		return s;
+	}
+
+}
