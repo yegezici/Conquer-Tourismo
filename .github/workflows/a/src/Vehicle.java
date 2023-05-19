@@ -1,4 +1,6 @@
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -6,6 +8,8 @@ public class Vehicle {
 	private int cityId;
 	private int capacity;
 	ImageView imageView;
+	DoubleProperty xCordinate = new SimpleDoubleProperty(2);
+	DoubleProperty yCordinate = new SimpleDoubleProperty(2);
 
 	public Vehicle() {
 
@@ -36,9 +40,5 @@ public class Vehicle {
 
 	public int getCapacity() {
 		return capacity;
-	}
-
-	public ImageView createVehicle() {
-		return null;
 	}
 }
