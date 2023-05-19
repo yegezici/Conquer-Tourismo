@@ -14,7 +14,7 @@ public class NewCenterPane extends Pane {
 	CenterPane center;
 	Node[][] nodes = new Node[10][10];
 	//Sehirler resimken yapildi sayisini tutmak icin cok gereksiz gibi duruyor duzeltilebilir
-	ArrayList<ImageView> cities = new ArrayList<>();
+
 	DoubleProperty xlength;
 	DoubleProperty ylength;
 	double cellWidth;
@@ -48,12 +48,6 @@ public class NewCenterPane extends Pane {
 					b++;
 				}
 				if (lvl.cities.get(a).getLocId() == i) { // koordinatların tam olması için 1 den çıkartmıyoruz
-					CityButton cB = new CityButton(lvl.cities.get(a).getName(), imgarr[(int) (Math.random() * 6)],
-							(lvl.cities.get(a).getLocId() % 10 == 0 ? (lvl.cities.get(a).getLocId() % 10) + 8
-									: (lvl.cities.get(a).getLocId() % 10)),
-							(lvl.cities.get(a).getLocId() % 10 == 0) ? (lvl.cities.get(a).getLocId() / 10)
-									: (lvl.cities.get(a).getLocId()) / 10 + 1,
-							lvl, a);
 					NewCityButton button = new NewCityButton(lvl.cities.get(a).getName(), imgarr[(int) (Math.random() * 6)],
 							(lvl.cities.get(a).getLocId() % 10 == 0 ? ((lvl.cities.get(a).getLocId() % 10) + 8) * cellWidth
 									: ((lvl.cities.get(a).getLocId() % 10))) * cellWidth,
@@ -66,11 +60,9 @@ public class NewCenterPane extends Pane {
 					if (lvl.cities.get(a).getLocId() % 10 == 0) {
 						nodes[(lvl.cities.get(a).getLocId() % 10) + 9][(lvl.cities.get(a).getLocId() / 10)
 								- 1] = button.createButton();
-						cities.add(cB.ivOfimg);
 					} else {
 						nodes[(lvl.cities.get(a).getLocId() % 10) - 1][(lvl.cities.get(a).getLocId()
 								/ 10)] = button.createButton();
-						cities.add(cB.ivOfimg);
 					}
 					row = 0;
 					col = 0;
@@ -107,19 +99,8 @@ public class NewCenterPane extends Pane {
 			}
 		}
 		createVehicle(lvl);
-		for (int f = 0; f < cities.size(); f++) {
-			ImageView cityImageView = cities.get(f);
-			cityImageView.setOnMouseClicked(event -> {
-				if (event.getSource() == cityImageView) {
-					double x = event.getX();
-					double y = event.getY();
-					System.out.println("x " + x + "-" + "y" + y);
-					Vehicle vehicle = lvl.vehicles.get(0);
-					
-					createLine(vehicle.xCordinate.get(), vehicle.yCordinate.get(),1*cellWidth+ x, 6*cellHeight+y);
-				}
-			});
-		}
+		
+		
 	}
 
 	public void createLine(double startX, double startY, double endX, double endY) {
