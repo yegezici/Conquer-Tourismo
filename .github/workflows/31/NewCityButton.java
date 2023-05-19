@@ -27,9 +27,16 @@ public class NewCityButton extends Button {
 		iv.setFitHeight(imageSize);
 		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
 		button.setGraphic(iv);
+		
 		button.setOnAction(e ->{
 			System.out.println(31);
 		});
+		button.setOnAction(e -> {
+            double x = button.getLayoutX();
+            double y = button.getLayoutY();
+            System.out.println("Button coordinates: (" + x + ", " + y + ")");
+        });
+		
 		return button;
 		
 	}
