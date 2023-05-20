@@ -77,17 +77,12 @@ public class BottomPane extends BorderPane {
 				line = polyline;
 			}
 			pane.animation(polyline);
-			lvl.getPane().top.score = new SimpleIntegerProperty(lvl.getPane().(lvl.getPane().center.city.
-					calculateDistance((int)(startX), (int)(startY), (int)(endX), (int)(endY))));
-			Label propertyLabel = new Label();
-	        propertyLabel.textProperty().bind(Bindings.format("Property Value: %2d",lvl.getPane().top.score));
-	        System.out.println("buton");
-	        setTop(propertyLabel);
+			lvl.getPane().top.score.set(lvl.getPane().center.city.calculateScore(lvl.getPane().center.city.calculateDistance((int)(startX),
+					(int)(startY),(int)(endX),(int)(endY)))); 
+	        lvl.getPane().top.scoreLabel.textProperty().bind(Bindings.format("Score: %d" ,lvl.getPane().top.score));
+	   
 			
 		}
 	}
-	
-	
-
 
 }
