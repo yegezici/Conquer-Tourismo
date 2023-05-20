@@ -14,6 +14,7 @@ public class TopPane extends HBox{
 	static int currentLevel = 0 ;
 	Text t1 = new Text("LEVEL : " + (currentLevel+1));
 	IntegerProperty score = new SimpleIntegerProperty(0);
+	Label scoreLabel;
 	
 	public TopPane() {
 	  int currentScore = 0, levelScore = 0;
@@ -22,7 +23,7 @@ public class TopPane extends HBox{
 	  
 	    
 	
-		Label scoreLabel = new Label();
+		scoreLabel = new Label();
 		scoreLabel.textProperty().bind(
 				Bindings.format("Score : %d", score));
 		
