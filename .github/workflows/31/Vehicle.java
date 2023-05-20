@@ -8,9 +8,9 @@ public class Vehicle {
 	private int cityId;
 	private int capacity;
 	ImageView imageView;
-	DoubleProperty xCordinate = new SimpleDoubleProperty(2);
-	DoubleProperty yCordinate = new SimpleDoubleProperty(2);
-    
+	double xCordinate;
+	double yCordinate;
+
 	public Vehicle() {
 
 	}
@@ -20,18 +20,18 @@ public class Vehicle {
 		this.capacity = capacity;
 		Image car;	
 		if (this.capacity <= 5) {
-			car = new Image("car.png");
+			car = new Image("new_car.png");
 			imageView = new ImageView(car);
 		} else if (this.capacity > 5 && this.capacity < 14) {
-			car = new Image("minivan.png");
+			car = new Image("new_minivan.png");
 			imageView = new ImageView(car);
 		} else {
-			car = new Image("bus.png");
+			car = new Image("new_bus.png");
 			imageView = new ImageView(car);
 		}
 
-		imageView.setFitWidth(35);
-		imageView.setFitHeight(35);
+		imageView.setFitWidth(25);
+		imageView.setFitHeight(25);
 	}
 
 	public int getCityId() {
@@ -41,9 +41,4 @@ public class Vehicle {
 	public int getCapacity() {
 		return capacity;
 	}
-
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
-	}
-	
 }
