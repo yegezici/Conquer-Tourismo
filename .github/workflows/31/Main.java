@@ -21,9 +21,6 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		TopPane tp = new TopPane();
 
-		// bir sonraki levelin scene de burda normalde level atlıyordum tuşa basınca
-		// fakat çok yavaş çalışıyordu ben de saldım
-		// biraz yavaş çalışıyor yapacak bir şey yok
 		menu.newGameButton.setOnAction(e -> {
 
 			String[] lvlarr = { "level1.txt", "level2.txt", "level3.txt", "level4.txt", "level5.txt" };
