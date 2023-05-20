@@ -1,26 +1,25 @@
-import java.util.ArrayList;
-
+import javafx.animation.PathTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polyline;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class NewCenterPane extends Pane {
-	CenterPane center;
 	Node[][] nodes = new Node[10][10];
-	//Sehirler resimken yapildi sayisini tutmak icin cok gereksiz gibi duruyor duzeltilebilir
-
+	NewLevel lvl;
 	DoubleProperty xlength;
 	DoubleProperty ylength;
 	double cellWidth;
 	double cellHeight;
+	NewCityButton city;
 
-	NewCenterPane(NewLevel lvl) {
+	NewCenterPane(NewLevel lvl, Text text) {
+		this.lvl = lvl;
 		Image img = new Image("ist.png");
 		Image img1 = new Image("mersin.png");
 		Image img2 = new Image("city1.png");
@@ -29,13 +28,12 @@ public class NewCenterPane extends Pane {
 		Image img5 = new Image("city4.png");
 		Image img6 = new Image("fixedcellsign.jpg");
 		Image[] imgarr = { img, img1, img2, img3, img4, img5 };
-		
 		this.setPrefSize(400, 400);
 		cellWidth = this.getPrefWidth() / 10;
 		cellHeight = this.getPrefHeight() / 10;
-		
+
 		int rectangleCount = 10;
-		int i = 0, a = 0, b = 0, index = 0;
+		int i = 0, a = 0, b = 0;
 		for (int row = 0; row < rectangleCount; row++) {
 			for (int col = 0; col < rectangleCount; col++) {
 				if (a == lvl.cities.size())
@@ -48,21 +46,24 @@ public class NewCenterPane extends Pane {
 					b++;
 				}
 				if (lvl.cities.get(a).getLocId() == i) { // koordinatların tam olması için 1 den çıkartmıyoruz
-					NewCityButton button = new NewCityButton(lvl.cities.get(a).getName(), imgarr[(int) (Math.random() * 6)],
-							(lvl.cities.get(a).getLocId() % 10 == 0 ? ((lvl.cities.get(a).getLocId() % 10) + 8) * cellWidth
-									: ((lvl.cities.get(a).getLocId() % 10))) * cellWidth,
-							(lvl.cities.get(a).getLocId() % 10 == 0) ? (lvl.cities.get(a).getLocId() / 10) * cellHeight
-											: ((lvl.cities.get(a).getLocId()) / 10 + 1) * cellHeight);
-					
+					NewCityButton button = new NewCityButton(lvl.cities.get(a).getName(),
+							imgarr[(int) (Math.random() * 6)],
+							(lvl.cities.get(a).getLocId() % 10 == 0
+									? (((lvl.cities.get(a).getLocId() % 10) + 8) - 1) * cellWidth
+									: (((lvl.cities.get(a).getLocId() % 10)) - 1) * cellWidth),
+							(lvl.cities.get(a).getLocId() % 10 == 0)
+									? ((lvl.cities.get(a).getLocId() / 10) - 1) * cellHeight
+									: (((lvl.cities.get(a).getLocId()) / 10 + 1) - 1) * cellHeight,lvl ,a);
+					city = button;
 					// bazilarini buranin ustunde silmis olabilirim
 					// forNextCity = cB;
 					// buttons[index++] =cB;
 					if (lvl.cities.get(a).getLocId() % 10 == 0) {
-						nodes[(lvl.cities.get(a).getLocId() % 10) + 9][(lvl.cities.get(a).getLocId() / 10)
-								- 1] = button.createButton();
+						nodes[(lvl.cities.get(a).getLocId() % 10) + 9][(lvl.cities.get(a).getLocId() / 10) - 1] = button
+								.createButton(text);
 					} else {
-						nodes[(lvl.cities.get(a).getLocId() % 10) - 1][(lvl.cities.get(a).getLocId()
-								/ 10)] = button.createButton();
+						nodes[(lvl.cities.get(a).getLocId() % 10) - 1][(lvl.cities.get(a).getLocId() / 10)] = button
+								.createButton(text);
 					}
 					row = 0;
 					col = 0;
@@ -85,30 +86,19 @@ public class NewCenterPane extends Pane {
 					willAdded.setLayoutX(cellWidth * row);
 					willAdded.setLayoutY(cellHeight * col);
 					this.getChildren().add(willAdded);
-				} else {
-					Rectangle square = new Rectangle();
-					square.setWidth(cellWidth);
-					square.setHeight(cellHeight);
-					square.setFill(Color.TRANSPARENT);
-					square.setStroke(Color.BLACK);
-					square.setLayoutX(cellWidth * row);
-					square.setLayoutY(cellHeight * col);
-					this.getChildren().add(square);
-
 				}
 			}
 		}
 		createVehicle(lvl);
-		
-		
+
 	}
 
-	public void createLine(double startX, double startY, double endX, double endY) {
+	public Polyline createLine(double startX , double startY, double endX, double endY) {
 		Polyline polyline = new Polyline();
-		polyline.getPoints().addAll(startX, startY, endX, startY, endX, endY);
+		polyline.getPoints().addAll(startX , startY, endX, startY, endX, endY);
 		polyline.setStroke(Color.GREEN);
 		polyline.setStrokeWidth(7);
-		this.getChildren().add(polyline);
+		return polyline;
 
 	}
 
@@ -124,10 +114,21 @@ public class NewCenterPane extends Pane {
 		int vy = location / 10;
 		iv.setFitWidth(25);
 		iv.setFitHeight(25);
-		vehicle.xCordinate.bind(this.widthProperty().divide(10).multiply(vx));
-		vehicle.yCordinate.bind(this.heightProperty().divide(10).multiply(vy));
-		iv.layoutXProperty().bind(this.widthProperty().divide(10).multiply(vx));
-		iv.layoutYProperty().bind(this.heightProperty().divide(10).multiply(vy));
+		iv.setLayoutX(vx * cellWidth);
+		iv.setLayoutY(vy * cellHeight);
+		lvl.vehicle.xCordinate = vx * cellWidth;
+		lvl.vehicle.yCordinate = vy * cellHeight;
 		this.getChildren().add(iv);
 	}
+
+	public void animation(Polyline polyline) {
+		PathTransition transition = new PathTransition();
+		transition.setDuration(Duration.millis(1000));
+		transition.setPath(polyline);
+		transition.setNode(lvl.vehicle.imageView);
+		transition.setCycleCount(1);
+		transition.setAutoReverse(false);
+		transition.play();
+	}
+
 }
