@@ -65,6 +65,11 @@ public class NewCityButton extends Button {
 		return (int) (Math.ceil(Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow(y1 - y2, 2))));
 
 	}
+	public int calculateScore(int distance) {
+		int cost = distance;
+		int income = (int) (lvl.vehicle.pasAtVehicle * distance * 0.2);
+		return income - cost;
+	}
 
 	public String getCityInformation() {
 		return String.format("%s (City ID = %d, Distance = %d, Vehicle Capacity = %d)", lvl.cities.get(index).getName(),
