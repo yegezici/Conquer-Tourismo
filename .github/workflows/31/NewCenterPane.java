@@ -24,7 +24,6 @@ public class NewCenterPane extends Pane {
 	double cellHeight;
 	NewCityButton city;
 
-
 	NewCenterPane(NewLevel lvl, Text text) {
 		this.lvl = lvl;
 		Image img = new Image("ist.png");
@@ -33,7 +32,7 @@ public class NewCenterPane extends Pane {
 		Image img3 = new Image("city2.png");
 		Image img4 = new Image("city3.png");
 		Image img5 = new Image("city4.png");
-		Image img6 = new Image("fixedcellsign.jpg");
+		Image img6 = new Image("fixedcellsign.png");
 		Image[] imgarr = { img, img1, img2, img3, img4, img5 };
 
 		int i = 0, a = 0, b = 0;
@@ -61,9 +60,6 @@ public class NewCenterPane extends Pane {
 
 					city = button;
 
-					// bazilarini buranin ustunde silmis olabilirim
-					// forNextCity = cB;
-					// buttons[index++] =cB;
 					if (lvl.cities.get(a).getLocId() % 10 == 0) {
 						nodes[(lvl.cities.get(a).getLocId() % 10) + 9][(lvl.cities.get(a).getLocId() / 10) - 1] = button
 								.createButton(text);
@@ -83,8 +79,6 @@ public class NewCenterPane extends Pane {
 
 		}
 
-
-
 		this.setPrefSize(500, 500);
 		cellWidth = this.getPrefWidth() / 10;
 		cellHeight = this.getPrefHeight() / 10;
@@ -93,8 +87,13 @@ public class NewCenterPane extends Pane {
 			for (int col = 0; col < 10; col++) {
 				if (nodes[row][col] != null) {
 					Node willAdded = nodes[row][col];
-					willAdded.setLayoutX(cellWidth * row);
-					willAdded.setLayoutY(cellHeight * col);
+					if (willAdded instanceof Button) {
+						willAdded.setLayoutX(cellWidth * row - 15);
+						willAdded.setLayoutY(cellHeight * col - 15);
+					} else {
+						willAdded.setLayoutX(cellWidth * row + 5);
+						willAdded.setLayoutY(cellHeight * col);
+					}
 					this.getChildren().add(willAdded);
 
 				}
@@ -106,14 +105,29 @@ public class NewCenterPane extends Pane {
 
 	public Polyline createLine(double startX, double startY, double endX, double endY) {
 		Polyline polyline = new Polyline();
-		polyline.getPoints().addAll(startX, startY, endX, startY, endX, endY);
+		int fixed = isThere(startX, startY, endX, endY);
+		double xOfFixed = (fixed % 10 - 1) * cellWidth;
+		double yOfFixed = (fixed / 10) * cellHeight;
+		if ((int) (fixed) != 0) {
+			if (startX > endX && startY < endY) {
+				polyline.getPoints().addAll(startX, startY, xOfFixed, startY, xOfFixed, yOfFixed + 10, xOfFixed - 60,
+						yOfFixed + 10, xOfFixed - 60, yOfFixed - 10, xOfFixed, yOfFixed - 10, endX, endY);
+			}
+			if (startX < endX && startY < endY) {
+				polyline.getPoints().addAll(startX, startY, startX, startY + 60, endX, startY + 60, endX, endY);
+			}
+			if (startX > endX && startY > endY) {
+				polyline.getPoints().addAll(startX, startY, startX, startY - 60, endX, startY - 60, endX, endY);
+			}
+		} else {
+			polyline.getPoints().addAll(startX, startY, endX, startY, endX, endY);
+
+		}
 		polyline.setStroke(Color.GREEN);
 		polyline.setStrokeWidth(7);
 		return polyline;
 
 	}
-
-
 
 	public void createVehicle(NewLevel lvl) {
 		Vehicle vehicle = lvl.vehicles.get(0);
@@ -124,7 +138,6 @@ public class NewCenterPane extends Pane {
 		}
 		int vx = location % 10 - 1;
 		int vy = location / 10;
-		System.out.println(vx + " " + vy);
 		lvl.vehicle.imageView.setFitWidth(35);
 		lvl.vehicle.imageView.setFitHeight(35);
 		lvl.vehicle.xCordinate = vx * cellWidth;
@@ -132,7 +145,7 @@ public class NewCenterPane extends Pane {
 		lvl.vehicle.imageView.setLayoutX(lvl.vehicle.xCordinate);
 		lvl.vehicle.imageView.setLayoutY(lvl.vehicle.yCordinate);
 		this.getChildren().add(lvl.vehicle.imageView);
-	
+
 	}
 
 	public void animation(Polyline polyline) {
@@ -140,8 +153,26 @@ public class NewCenterPane extends Pane {
 		transition.setDuration(Duration.millis(2000));
 		transition.setPath(polyline);
 		transition.setNode(lvl.vehicle.imageView);
+		lvl.vehicle.imageView.toFront();
 		transition.setCycleCount(1);
 		transition.play();
 	}
 
+	public int isThere(double startX, double startY, double endX, double endY) {
+		int fixed = 0;
+		ArrayList<Double> x = new ArrayList<>();
+		ArrayList<Double> y = new ArrayList<>();
+		for (int i = 0; i < lvl.fixedCells.size(); i++) {
+			x.add((lvl.fixedCells.get(i) % 10 - 1) * cellWidth);
+			y.add((lvl.fixedCells.get(i) / 10) * cellHeight);
+		}
+		for (int i = 0; i < lvl.fixedCells.size(); i++) {
+			if ((x.get(i) <= startX && x.get(i) >= endX) || (x.get(i) >= startX && x.get(i) <= endX)) {
+				if ((y.get(i) <= startY && y.get(i) >= endY) || (y.get(i) >= startY && x.get(i) <= endY)) {
+					fixed = lvl.fixedCells.get(i);
+				}
+			}
+		}
+		return fixed;
+	}
 }
