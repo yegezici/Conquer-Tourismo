@@ -1,15 +1,12 @@
 import java.util.Iterator;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -63,8 +60,8 @@ public class BottomPane extends BorderPane {
 				if(lvl.cities.get(i).getId() ==  lvl.vehicle.getCityId())
 					lvl.vehicle.setCityName(lvl.cities.get(i).getName());
 			}
-			
-			
+			lvl.vehicle.imageView.setLayoutX(0);
+			lvl.vehicle.imageView.setLayoutY(0);
 			Polyline polyline = pane.createLine(startX, startY, endX, endY);
 			pane.getChildren().add(polyline);
 			if (line == null) {
