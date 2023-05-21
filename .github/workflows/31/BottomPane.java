@@ -18,6 +18,7 @@ public class BottomPane extends BorderPane {
 	static double endX;
 	static double endY;
 	Button b;
+	int score = 0;
 
 	public BottomPane(NewLevel lvl, Text text) {
 		this.lvl = lvl;
@@ -81,10 +82,11 @@ public class BottomPane extends BorderPane {
 				line = polyline;
 			}
 			pane.animation(polyline);
-			lvl.getPane().top.score.set(lvl.getPane().center.city.calculateScore(lvl.getPane().center.city
-					.calculateDistance((int) (startX), (int) (startY), (int) (endX), (int) (endY))));
+			score +=lvl.getPane().center.city.calculateScore(lvl.getPane().center.city
+					.calculateDistance((int) (startX), (int) (startY), (int) (endX), (int) (endY)));
+			lvl.getPane().top.score.set(score);
 			lvl.getPane().top.scoreLabel.textProperty().bind(Bindings.format("Score: %d", lvl.getPane().top.score));
-
+			lvl.vehicle.pasAtVehicle = 0;
 		}
 	}
 }
