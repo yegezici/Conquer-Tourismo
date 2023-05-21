@@ -17,17 +17,17 @@ public class BottomPane extends BorderPane {
 	static Polyline line;
 	static double endX;
 	static double endY;
+	Button b;
 
 	public BottomPane(NewLevel lvl, Text text) {
 		this.lvl = lvl;
-		Button b = new Button();
+		b = new Button();
 		b.setText("DRIVE");
 		b.setStyle(
 				"-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-size: 24px; -fx-font-family: Arial;"
 						+ "-fx-font-style: italic;");
 		setStyle("-fx-border-color: black");
-		b.setOnMouseEntered(e -> b.setOpacity(1.0));
-		b.setOnMouseExited(e -> b.setOpacity(0.5));
+		b.setOpacity(0.5);
 		b.setOnAction(new DriveButtonSetOnAction());
 		Text score = new Text("score");
 		score.setTextAlignment(TextAlignment.CENTER);
@@ -40,24 +40,26 @@ public class BottomPane extends BorderPane {
 
 		@Override
 		public void handle(ActionEvent event) {
-			double startX = lvl.vehicle.xCordinate;
-			double startY = lvl.vehicle.yCordinate;
+			b.setOpacity(0.5);
+			b.setDisable(true);
+			double startX = lvl.vehicle.xCordinate + 25;
+			double startY = lvl.vehicle.yCordinate + 25;
 			NewCenterPane pane = lvl.getPane().center;
-			endX = NewCityButton.endX;
-			endY = NewCityButton.endY;
+			endX = NewCityButton.endX + 25;
+			endY = NewCityButton.endY + 25;
 			// For moving vehicle to its new coordinates
 			lvl.vehicle.xCordinate = endX;
 			lvl.vehicle.yCordinate = endY;
-			
-			for(int i = 0; i < lvl.cities.size(); i++) {
-				if(lvl.cities.get(i).getId() ==  lvl.vehicle.getCityId())
+
+			for (int i = 0; i < lvl.cities.size(); i++) {
+				if (lvl.cities.get(i).getId() == lvl.vehicle.getCityId())
 					lvl.vehicle.setCityName(lvl.cities.get(i).getName());
 			}
 			lvl.getPane().center.city.transportPassengers();
-			
+
 			lvl.vehicle.setCityId(lvl.vehicle.getDestCityId());
-			for(int i = 0; i < lvl.cities.size(); i++) {
-				if(lvl.cities.get(i).getId() ==  lvl.vehicle.getCityId())
+			for (int i = 0; i < lvl.cities.size(); i++) {
+				if (lvl.cities.get(i).getId() == lvl.vehicle.getCityId())
 					lvl.vehicle.setCityName(lvl.cities.get(i).getName());
 			}
 			lvl.vehicle.imageView.setLayoutX(0);
@@ -79,12 +81,10 @@ public class BottomPane extends BorderPane {
 				line = polyline;
 			}
 			pane.animation(polyline);
-			lvl.getPane().top.score.set(lvl.getPane().center.city.calculateScore(lvl.getPane().center.city.calculateDistance((int)(startX),
-					(int)(startY),(int)(endX),(int)(endY)))); 
-	        lvl.getPane().top.scoreLabel.textProperty().bind(Bindings.format("Score: %d" ,lvl.getPane().top.score));
-	   
-			
+			lvl.getPane().top.score.set(lvl.getPane().center.city.calculateScore(lvl.getPane().center.city
+					.calculateDistance((int) (startX), (int) (startY), (int) (endX), (int) (endY))));
+			lvl.getPane().top.scoreLabel.textProperty().bind(Bindings.format("Score: %d", lvl.getPane().top.score));
+
 		}
 	}
-
 }
