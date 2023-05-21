@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class NewCityButton extends Button {
@@ -43,10 +45,16 @@ public class NewCityButton extends Button {
 	public Button createButton(Text botText) {
 		Button button = new Button();
 		int imageSize = 35;
+		Text t1 = new Text(this.name);
+	    getChildren().add(t1);
 		iv.setFitWidth(imageSize);
 		iv.setFitHeight(imageSize);
 		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
-		button.setGraphic(iv);
+		VBox vbox = new VBox(iv, t1); // Resim ve metni içeren bir VBox oluşturun
+	    vbox.setAlignment(Pos.CENTER); // İçeriği ortalamak için hizalamayı ayarlayın
+	    vbox.setSpacing(5); // İçeriğin arasına boşluk ekleyin
+	    button.setGraphic(vbox); // Butonun grafik nesnesi olarak VBox'i kullanın
+
 
 		button.setOnAction(e -> {
 			endX = button.getLayoutX();
@@ -127,7 +135,7 @@ public class NewCityButton extends Button {
 			}
 
 		}
-
+        
 		if (isTransferred()) {
 			lvl.getPane().top.b.setOpacity(1);
 			lvl.getPane().top.b.setDisable(false);
