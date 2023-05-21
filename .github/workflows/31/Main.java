@@ -7,10 +7,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main1 extends Application {
 
-	int currentLevel = 0;
-
+	static int currentLevel = 0;
+	
+   
 	@Override
 	public void start(Stage primaryStage) {
 		// ana menü scene burda oluşuyor gösteriliyor
@@ -33,6 +34,7 @@ public class Main extends Application {
 			MainPane pane = new MainPane(tp, root, bp);
 			level.setPane(pane);
             Scene scene2 = new Scene(pane,500,600);
+            tp.b.setDisable(false);
 			primaryStage.setScene(scene2);
 
 		});
@@ -59,9 +61,11 @@ public class Main extends Application {
 
 			currentLevel = index;
 			tp.t1.setText("LEVEL: " + (index + 1));
+			
 			Scene scene2 = new Scene(pane, 500, 600);
 			primaryStage.setScene(scene2);
 		});
+		
 		tp.b.setOnAction(e -> {
 			// System.out.println("a");
 			currentLevel++;
@@ -80,9 +84,33 @@ public class Main extends Application {
 			primaryStage.setScene(scene2);
 
 			tp.t1.setText("LEVEL: " + (currentLevel + 1));
-
+			tp.b.setOpacity(0.5);
+            tp.b.setDisable(false);
 		});
+		
+		tp.back.setOnAction(e -> {
+			// System.out.println("a");
+			currentLevel--;
+			String[] lvlarr = { "level1.txt", "level2.txt", "level3.txt", "level4.txt", "level5.txt" };
+			SaveAndLoad sl = new SaveAndLoad(lvlarr[currentLevel]);
+			File name = new File(lvlarr[currentLevel]);
+			NewLevel level = new NewLevel(name);
+			level.readingFile();
+			Text text = new Text();
+			NewCenterPane root = new NewCenterPane(level,text);
+			BottomPane bp = new BottomPane(level,text);
+			MainPane pane = new MainPane(tp, root, bp);
+			level.setPane(pane);
+			Scene scene2 = new Scene(pane, 500, 600);
+			sl.save();
+			primaryStage.setScene(scene2);
 
+			tp.t1.setText("LEVEL: " + (currentLevel + 1));
+			tp.b.setOpacity(0.5);
+			
+			tp.b.setDisable(false);
+		});
+		
 		primaryStage.show();
 	}
 
