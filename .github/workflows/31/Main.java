@@ -3,6 +3,7 @@ import java.io.File;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -32,9 +33,11 @@ public class Main1 extends Application {
 			NewCenterPane root = new NewCenterPane(level,text);
 			BottomPane bp = new BottomPane(level,text);
 			MainPane pane = new MainPane(tp, root, bp);
+			root.setStyle("-fx-background-color: #b7c6c7;");
 			level.setPane(pane);
             Scene scene2 = new Scene(pane,500,600);
             tp.b.setDisable(false);
+            tp.back.setDisable(true);
 			primaryStage.setScene(scene2);
 
 		});
@@ -57,6 +60,7 @@ public class Main1 extends Application {
 			NewCenterPane root = new NewCenterPane(level,text);
 			BottomPane bp = new BottomPane(level,text);
 			MainPane pane = new MainPane(tp, root, bp);
+			root.setStyle("-fx-background-color: #b7c6c7;");
 			level.setPane(pane);
 
 			currentLevel = index;
@@ -79,13 +83,18 @@ public class Main1 extends Application {
 			BottomPane bp = new BottomPane(level,text);
 			MainPane pane = new MainPane(tp, root, bp);
 			level.setPane(pane);
+			root.setStyle("-fx-background-color: #b7c6c7;");
 			Scene scene2 = new Scene(pane, 500, 600);
 			sl.save();
 			primaryStage.setScene(scene2);
-
+            
 			tp.t1.setText("LEVEL: " + (currentLevel + 1));
-			tp.b.setOpacity(0.5);
+			//tp.b.setOpacity(0.5);
             tp.b.setDisable(false);
+            if(lvlarr[currentLevel] == lvlarr[lvlarr.length - 1]) {
+            	tp.b.setDisable(true);
+            }
+            tp.back.setDisable(false);
 		});
 		
 		tp.back.setOnAction(e -> {
@@ -101,14 +110,20 @@ public class Main1 extends Application {
 			BottomPane bp = new BottomPane(level,text);
 			MainPane pane = new MainPane(tp, root, bp);
 			level.setPane(pane);
+			root.setStyle("-fx-background-color: #b7c6c7;");
 			Scene scene2 = new Scene(pane, 500, 600);
 			sl.save();
 			primaryStage.setScene(scene2);
 
 			tp.t1.setText("LEVEL: " + (currentLevel + 1));
-			tp.b.setOpacity(0.5);
-			
+			//tp.b.setOpacity(0.5);
 			tp.b.setDisable(false);
+			 if(currentLevel == 0) {
+	            	tp.back.setDisable(true);
+	            	tp.back.setOpacity(0.5);
+	            }
+			 else
+				 tp.back.setDisable(false);
 		});
 		
 		primaryStage.show();
