@@ -37,7 +37,7 @@ public class TopPane extends HBox{
 				Bindings.format("Score : %d", score));
 		b.setDisable(true);
 		b.setAlignment(Pos.CENTER);
-		b.setOpacity(0.5);
+		
 		 b.setStyle("-fx-background-color: linear-gradient(#f2f2f2, #d6d6d6), linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%), linear-gradient(#dddddd 0%, #f6f6f6 50%);"
 		 		+ " -fx-background-radius: 8,7,6;"+ 
 		    "-fx-background-insets: 0,1,2;" +
@@ -55,6 +55,13 @@ public class TopPane extends HBox{
 		t1.setFont(Font.font("Lucida Sans Unicode", FontWeight.EXTRA_BOLD, 20));
 		getChildren().addAll(t1,scoreLabel,back,b);
 		setStyle("-fx-border-color: black");
+		b.setOpacity(0.76);
+		b.setOnMouseEntered(e -> {
+			b.setOpacity(0.95);
+		});
+		b.setOnMouseExited(e -> {
+			b.setOpacity(0.78);
+		});
 		back.setOnAction(e -> {
 		
 			currentLevel--;
@@ -62,9 +69,13 @@ public class TopPane extends HBox{
 		back.setOnMouseEntered(e -> {
 			back.setOpacity(0.9);
 		});
+		back.setOnMouseExited(e -> {
+			back.setOpacity(0.78);
+		});
+		
+		
 		b.setOnAction(e -> {
-				//System.out.println("a");
-	        	
+		
 			currentLevel++;
 	        	
 	            
