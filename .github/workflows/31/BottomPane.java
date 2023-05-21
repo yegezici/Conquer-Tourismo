@@ -52,8 +52,13 @@ public class BottomPane extends BorderPane {
 			lvl.vehicle.xCordinate = endX;
 			lvl.vehicle.yCordinate = endY;
 			
-			lvl.vehicle.setCityId(lvl.vehicle.getDestCityId());
+			for(int i = 0; i < lvl.cities.size(); i++) {
+				if(lvl.cities.get(i).getId() ==  lvl.vehicle.getCityId())
+					lvl.vehicle.setCityName(lvl.cities.get(i).getName());
+			}
 			lvl.getPane().center.city.transportPassengers();
+			
+			lvl.vehicle.setCityId(lvl.vehicle.getDestCityId());
 			for(int i = 0; i < lvl.cities.size(); i++) {
 				if(lvl.cities.get(i).getId() ==  lvl.vehicle.getCityId())
 					lvl.vehicle.setCityName(lvl.cities.get(i).getName());
