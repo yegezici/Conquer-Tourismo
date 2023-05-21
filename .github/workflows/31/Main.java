@@ -87,12 +87,13 @@ public class Main1 extends Application {
 			Scene scene2 = new Scene(pane, 500, 600);
 			sl.save();
 			primaryStage.setScene(scene2);
-            
+            tp.back.setOpacity(0.76);
 			tp.t1.setText("LEVEL: " + (currentLevel + 1));
 			//tp.b.setOpacity(0.5);
             tp.b.setDisable(false);
             if(lvlarr[currentLevel] == lvlarr[lvlarr.length - 1]) {
             	tp.b.setDisable(true);
+            	tp.b.setOpacity(0.5);
             }
             tp.back.setDisable(false);
 		});
@@ -114,7 +115,7 @@ public class Main1 extends Application {
 			Scene scene2 = new Scene(pane, 500, 600);
 			sl.save();
 			primaryStage.setScene(scene2);
-
+            tp.b.setOpacity(0.76);
 			tp.t1.setText("LEVEL: " + (currentLevel + 1));
 			//tp.b.setOpacity(0.5);
 			tp.b.setDisable(false);
