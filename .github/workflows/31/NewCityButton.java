@@ -17,7 +17,8 @@ public class NewCityButton extends Button {
 	ArrayList<String> endCity = new ArrayList<>();
 	NewLevel lvl;
 	int index;
-
+	static int totalPas;
+	
 	public NewCityButton(String name, Image img, double xCordinate, double yCordinate, NewLevel lvl, int index) {
 		this.xCordinate = xCordinate;
 		this.yCordinate = yCordinate;
@@ -33,6 +34,9 @@ public class NewCityButton extends Button {
 				if (lvl.cities.get(j).getId() == lvl.passengers.get(i).getDestId())
 					endCity.add(lvl.cities.get(j).getName());
 			}
+		}
+		for(int i = 0; i < lvl.passengers.size(); i++) {
+			totalPas += lvl.passengers.get(i).getNumOfPas();
 		}
 	}
 
@@ -95,21 +99,38 @@ public class NewCityButton extends Button {
 		}
 		return s1;
 	}
+	public boolean isTransferred() {
+		
+		int total = 0;
+		for(int i = 0 ; i < lvl.passengers.size(); i++) {
+			total += lvl.passengers.get(i).getNumOfPas();
+		}
+		if(total == 0)
+			return true;
+		else 
+			return false;
+	}
 
 	public void transportPassengers() {
 		int capacity = lvl.vehicles.get(0).getCapacity();
-		for (int i = 0; i < lvl.passengers.size(); i++) {
+		
+		for (int i = 0; i < startCity.size(); i++) {
+			     
 				if (endCity.get(i).equals(this.name) && startCity.get(i).equals(lvl.vehicle.getCityName())) {
 					int passengersToTransport = Math.min(capacity, lvl.passengers.get(i).getNumOfPas());
 					lvl.vehicle.pasAtVehicle = passengersToTransport;
-					System.out.println(lvl.passengers.get(i).getNumOfPas());
-
 					lvl.passengers.get(i).setNumOfPas(lvl.passengers.get(i).getNumOfPas() - passengersToTransport);
-
-					System.out.println(lvl.passengers.get(i).getNumOfPas());
+					System.out.println(NewLevel.allPas);
+					
 
 			
 			}
+				
 		}
-	}
+		
+		if(isTransferred()) {
+		lvl.getPane().top.b.setOpacity(1);
+		lvl.getPane().top.b.setDisable(false);
+		
+		}}
 }
