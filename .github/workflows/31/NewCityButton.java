@@ -52,7 +52,7 @@ public class NewCityButton extends Button {
 	    iv.setFitWidth(imageSize);
 	    iv.setFitHeight(imageSize);
 	    iv.setClip(hexagon); 
-		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; " + "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
 		VBox vbox = new VBox(iv, t1); 
 	    vbox.setAlignment(Pos.CENTER);
 	    vbox.setSpacing(5); 
