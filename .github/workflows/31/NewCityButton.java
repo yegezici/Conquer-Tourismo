@@ -51,12 +51,12 @@ public class NewCityButton extends Button {
 	    Polygon hexagon = createHexagon(imageSize);
 	    iv.setFitWidth(imageSize);
 	    iv.setFitHeight(imageSize);
-	    iv.setClip(hexagon); // Resim görüntüsünün altıgen şeklini kullanmasını sağlar
+	    iv.setClip(hexagon); 
 		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
-		VBox vbox = new VBox(iv, t1); // Resim ve metni içeren bir VBox oluşturun
-	    vbox.setAlignment(Pos.CENTER); // İçeriği ortalamak için hizalamayı ayarlayın
-	    vbox.setSpacing(5); // İçeriğin arasına boşluk ekleyin
-	    button.setGraphic(vbox); // Butonun grafik nesnesi olarak VBox'i kullanın
+		VBox vbox = new VBox(iv, t1); 
+	    vbox.setAlignment(Pos.CENTER);
+	    vbox.setSpacing(5); 
+	    button.setGraphic(vbox); 
 
 
 		button.setOnAction(e -> {
@@ -65,7 +65,8 @@ public class NewCityButton extends Button {
 			botText.setText(getCityInformation() + "\n" + getPasssengerInformation());
 			lvl.getPane().center.city = this;
 			lvl.vehicle.setDestCityId(lvl.cities.get(lvl.getPane().center.city.index).getId());
-
+			lvl.getPane().bottom.b.setOpacity(1.0);
+			lvl.getPane().bottom.b.setDisable(false);
 		});
 
 		return button;
