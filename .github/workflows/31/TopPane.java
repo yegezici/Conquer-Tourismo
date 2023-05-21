@@ -8,7 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class TopPane extends HBox{
 	Button b = new Button("Next Level >>");
@@ -20,12 +23,16 @@ public class TopPane extends HBox{
 	
 	public TopPane() {
 	  int currentScore = 0, levelScore = 0;
-	  spacingProperty().bind(widthProperty().divide(4));
-	  setPadding(new Insets(5,5,5,5));
+	  spacingProperty().bind(widthProperty().divide(15));
+	  setPadding(new Insets(0,10,0,10));
 	  
 	    
 	    
 		scoreLabel = new Label();
+		scoreLabel.setStyle("-fx-font-size: 15px; -fx-font-family: Galactus;"
+				
+				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+		scoreLabel.setFont(Font.font("Lucida Sans Unicode", FontWeight.EXTRA_BOLD, 15));
 		scoreLabel.textProperty().bind(
 				Bindings.format("Score : %d", score));
 		b.setDisable(true);
@@ -37,9 +44,24 @@ public class TopPane extends HBox{
 		    "-fx-text-fill: black;" + 
 		    "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
 		Border.stroke(Color.BLACK);
-		getChildren().addAll(t1,scoreLabel,b);
+		back.setStyle("-fx-background-color: linear-gradient(#f2f2f2, #d6d6d6), linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%), linear-gradient(#dddddd 0%, #f6f6f6 50%);"
+		 		+ " -fx-background-radius: 8,7,6;"+ 
+		    "-fx-background-insets: 0,1,2;" +
+		    "-fx-text-fill: black;" + 
+		    "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+		t1.setTextAlignment(TextAlignment.CENTER);
+		t1.setStyle("-fx-font-size: 20px; -fx-font-family: Galactus;"
+				+ "-fx-font-weight: bold;");
+		t1.setFont(Font.font("Lucida Sans Unicode", FontWeight.EXTRA_BOLD, 20));
+		getChildren().addAll(t1,scoreLabel,back,b);
 		setStyle("-fx-border-color: black");
+		back.setOnAction(e -> {
 		
+			currentLevel--;
+		});
+		back.setOnMouseEntered(e -> {
+			back.setOpacity(0.9);
+		});
 		b.setOnAction(e -> {
 				//System.out.println("a");
 	        	
