@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
 public class NewCityButton extends Button {
@@ -44,11 +45,13 @@ public class NewCityButton extends Button {
 
 	public Button createButton(Text botText) {
 		Button button = new Button();
-		int imageSize = 35;
+		int imageSize = 50;
 		Text t1 = new Text(this.name);
 	    getChildren().add(t1);
-		iv.setFitWidth(imageSize);
-		iv.setFitHeight(imageSize);
+	    Polygon hexagon = createHexagon(imageSize);
+	    iv.setFitWidth(imageSize);
+	    iv.setFitHeight(imageSize);
+	    iv.setClip(hexagon); // Resim görüntüsünün altıgen şeklini kullanmasını sağlar
 		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
 		VBox vbox = new VBox(iv, t1); // Resim ve metni içeren bir VBox oluşturun
 	    vbox.setAlignment(Pos.CENTER); // İçeriği ortalamak için hizalamayı ayarlayın
@@ -68,7 +71,21 @@ public class NewCityButton extends Button {
 		return button;
 
 	}
+	private Polygon createHexagon(double size) {
+	    Polygon hexagon = new Polygon();
+	    double centerX = size / 2.0;
+	    double centerY = size / 2.0;
+	    double radius = size / 2.0;
 
+	    for (int i = 0; i < 6; i++) {
+	        double angle = 2.0 * Math.PI / 6 * i;
+	        double x = centerX + radius * Math.cos(angle);
+	        double y = centerY + radius * Math.sin(angle);
+	        hexagon.getPoints().addAll(x, y);
+	    }
+
+	    return hexagon;
+	}
 	public int calculateDistance(int x1, int y1, int x2, int y2) {
 		x1 /= 50;
 		x2 /= 50;
