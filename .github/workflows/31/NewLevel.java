@@ -4,34 +4,33 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class NewLevel {
+	//Keeps the file of current level
 	File file;
+	//Keeps the name of this file
 	String nameOfFile;
-	int score;
-	int fixedCell;
-	Vehicle vehicle = new Vehicle();
-	Passenger passanger = new Passenger();
-	City city = new City();
+	//Keeps the vehicle in the current level
+	Vehicle vehicle;
+	//Keeps all cities that created in this level
 	ArrayList<City> cities = new ArrayList<City>();
+	//In case, there could be exist more that one car 
 	ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+	//Keeps all passengers that created in this level
 	ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+	//Keeps the fixed cells
 	ArrayList<Integer> fixedCells = new ArrayList<Integer>();
+	//Keeps the pane of the level
 	private MainPane pane;
-	
-	NewLevel() {
 
-	}
-
-	NewLevel(File file) {
+	//This class has just one constructor and it takes file object as an argument
+	public NewLevel(File file) {
 		this.file = file;
 		nameOfFile = file.getName();
 
 	}
-
-	// Scanner boşluk görmediği için her satırı kelime olarak algılıyordu, ben de
-	// direkt nextLine ile diğer satırı String olarak alıp
-	// split ile array oluşturdum.
+	//In order to take input from level file, this class has a method 
 	public void readingFile() {
 		try {
+			//Scanner object takes input from the file
 			Scanner input = new Scanner(file);
 			String str = "";
 
@@ -40,43 +39,31 @@ public class NewLevel {
 				str = input.nextLine();
 				String[] inputs = str.split(",");
 				if (inputs[0].equals("City")) {
-					city = new City(inputs[1], Integer.valueOf(inputs[2]), Integer.valueOf(inputs[3]), this);
-					cities.add(city);
+					cities.add(new City(inputs[1], Integer.valueOf(inputs[2]), Integer.valueOf(inputs[3]), this));
 
 				} else if (inputs[0].equals("Passenger")) {
-					passanger = new Passenger(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]),
-							Integer.valueOf(inputs[3]), this);
-					passengers.add(passanger);
+					passengers.add(new Passenger(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]),
+							Integer.valueOf(inputs[3]), this));
 				} else if (inputs[0].equals("Vehicle")) {
 					vehicle = new Vehicle(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]));
 					vehicles.add(vehicle);
 				} else if (inputs[0].equals("Fixed")) {
-					this.fixedCell = Integer.valueOf(inputs[1]);
-					fixedCells.add(fixedCell);
+					fixedCells.add(Integer.valueOf(inputs[1]));
 				}
 
 			}
-
+			input.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("There is no file " + e.getMessage());
 		}
 
 	}
-
+	//This is a getter method for pane
 	public MainPane getPane() {
 		return pane;
 	}
-
+	//This is a setter method for pane
 	public void setPane(MainPane pane) {
 		this.pane = pane;
 	}
-	public String getVehicleInCityName() {
-        String name="";
-        for (int i = 0; i < cities.size(); i++) {
-            if (cities.get(i).getId() == vehicles.get(0).getCityId())
-                name = cities.get(i).getName();
-        }
-        return name;
-    }
-	
 }
