@@ -33,29 +33,42 @@ public class NewLevel {
 			//Scanner object takes input from the file
 			Scanner input = new Scanner(file);
 			String str = "";
-
+            //It scans file while it has a next line.
 			while (input.hasNextLine()) {
+				// Read the next line from the input
 				str = "";
 				str = input.nextLine();
-				String[] inputs = str.split(",");
-				if (inputs[0].equals("City")) {
-					cities.add(new City(inputs[1], Integer.valueOf(inputs[2]), Integer.valueOf(inputs[3]), this));
 
+				// Split the line by comma to separate the inputs
+				String[] inputs = str.split(",");
+
+				// Check the type of input and perform the corresponding action
+				//inputs[0] means the word in start of the line.
+				//We need an integer as a parameter. Since it is a string, we use valueOf method in Integer class to convert String to integer.
+				if (inputs[0].equals("City")) {
+					// Create a new City object and add it to the list of cities
+					cities.add(new City(inputs[1], Integer.valueOf(inputs[2]), Integer.valueOf(inputs[3]), this));   
 				} else if (inputs[0].equals("Passenger")) {
+					// Create a new Passenger object and add it to the list of passengers
 					passengers.add(new Passenger(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]),
 							Integer.valueOf(inputs[3]), this));
 				} else if (inputs[0].equals("Vehicle")) {
-					vehicle = new Vehicle(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]));
+					// Create a new Vehicle object and add it to the list of vehicles
+					vehicle = new Vehicle(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]));  
 					vehicles.add(vehicle);
 				} else if (inputs[0].equals("Fixed")) {
+					// Add the specified fixed cell to the list of fixed cells
 					fixedCells.add(Integer.valueOf(inputs[1]));
 				}
-
 			}
+
+			// Close the input stream
 			input.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("There is no file " + e.getMessage());
-		}
+
+			} catch (FileNotFoundException e) {
+				// Handle the case where the file is not found
+				System.out.println("There is no file " + e.getMessage());
+			}
 
 	}
 	//This is a getter method for pane
