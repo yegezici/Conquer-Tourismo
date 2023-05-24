@@ -21,7 +21,7 @@ public class City {
 		
 	}
     //Getter methods for name, locId, and id.
-	//There are only getter methods because these data fields is constant and cannot be changed by user.
+	//There are only getter methods because this data fields is constant and cannot be modified afterward.
 	public String getName() {
 		return name;
 	}
