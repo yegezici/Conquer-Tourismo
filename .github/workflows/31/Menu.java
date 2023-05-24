@@ -86,7 +86,7 @@ public class Menu extends BorderPane {
 
 
         //backgroundPane.getChildren().add(backgroundImageView);
-        backgroundPane.setStyle("-fx-background-image: url('backgroundd.png'); -fx-background-size: cover;");
+        backgroundPane.setStyle("-fx-background-image: url('backgroundmainmenu.png'); -fx-background-size: cover;");
         buttons.layoutXProperty().bind(backgroundPane.widthProperty().subtract(buttons.widthProperty()).divide(2));
         buttons.layoutYProperty().bind(backgroundPane.heightProperty().subtract(buttons.heightProperty()).divide(2));
         
