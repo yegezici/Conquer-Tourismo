@@ -9,9 +9,12 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
 public class NewCityButton extends Button {
+	//Coordinates of this object
 	double xCoordinate;
 	double yCoordinate;
+	//Imageview of this object
 	ImageView iv;
+	//Name of this city
 	String name;
 	// To take last clicked button's cordinates
 	static double endX;
@@ -42,31 +45,48 @@ public class NewCityButton extends Button {
 			totalPas += lvl.passengers.get(i).getNumOfPas();
 		}
 	}
-
+	//To create the button that will be shown to the user
+	//First, we create a VBox to put button and name together to button then use setGraphic method
 	public Button createButton(Text botText) {
+		//This is our button 
 		Button button = new Button();
+		//To arrange imageview's size
 		int imageSize = 50;
+		//To put the city name on the vbox
 		Text t1 = new Text(this.name);
-		getChildren().add(t1);
+		//We use hexagon instead of circle
 		Polygon hexagon = createHexagon(imageSize);
+		//Set imageview's size
 		iv.setFitWidth(imageSize);
 		iv.setFitHeight(imageSize);
+		//To put it in a hexagon
 		iv.setClip(hexagon);
 		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+		//Finallt put them in a vbox
 		VBox vbox = new VBox(iv, t1);
 		vbox.setAlignment(Pos.CENTER);
+		//5 pixels between nodes in VBox
 		vbox.setSpacing(5);
+		//Changes button's style
 		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+		//To put vbox on a button
 		button.setGraphic(vbox);
-
+		
+		//If a button is clicked
 		button.setOnAction(e -> {
+			//To create a line we save this object's coordinates
 			endX = button.getLayoutX();
 			endY = button.getLayoutY();
+			//To show passangers at this city
 			botText.setText(getCityInformation() + "\n" + getPasssengerInformation());
+			//To change current city in centerpane 
 			lvl.getPane().center.city = this;
+			//Update the current city id of the vehicle
 			lvl.vehicle.setDestCityId(lvl.cities.get(lvl.getPane().center.city.index).getId());
+			//Changes the opacity of drive button
 			lvl.getPane().bottom.b.setOpacity(1.0);
+			//Then this drive button is clickable
 			lvl.getPane().bottom.b.setDisable(false);
 		});
 
