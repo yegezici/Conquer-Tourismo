@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Main1 extends Application {
+public class Main extends Application {
 
 	static int currentLevel = 0;  //It represents current level. It is static because currentLevel is modified in another classes.
 	
