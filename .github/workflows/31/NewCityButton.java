@@ -9,8 +9,8 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
 public class NewCityButton extends Button {
-	double xCordinate;
-	double yCordinate;
+	double xCoordinate;
+	double yCoordinate;
 	ImageView iv;
 	String name;
 	// To take last clicked button's cordinates
@@ -23,8 +23,8 @@ public class NewCityButton extends Button {
 	static int totalPas;
 
 	public NewCityButton(String name, Image img, double xCordinate, double yCordinate, NewLevel lvl, int index) {
-		this.xCordinate = xCordinate;
-		this.yCordinate = yCordinate;
+		this.xCoordinate = xCordinate;
+		this.yCoordinate = yCordinate;
 		this.iv = new ImageView(img);
 		this.name = name;
 		this.lvl = lvl;
@@ -47,17 +47,18 @@ public class NewCityButton extends Button {
 		Button button = new Button();
 		int imageSize = 50;
 		Text t1 = new Text(this.name);
-	    getChildren().add(t1);
-	    Polygon hexagon = createHexagon(imageSize);
-	    iv.setFitWidth(imageSize);
-	    iv.setFitHeight(imageSize);
-	    iv.setClip(hexagon); 
-		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; " + "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-		VBox vbox = new VBox(iv, t1); 
-	    vbox.setAlignment(Pos.CENTER);
-	    vbox.setSpacing(5); 
-	    button.setGraphic(vbox); 
-
+		getChildren().add(t1);
+		Polygon hexagon = createHexagon(imageSize);
+		iv.setFitWidth(imageSize);
+		iv.setFitHeight(imageSize);
+		iv.setClip(hexagon);
+		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+		VBox vbox = new VBox(iv, t1);
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setSpacing(5);
+		button.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; "
+				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+		button.setGraphic(vbox);
 
 		button.setOnAction(e -> {
 			endX = button.getLayoutX();
@@ -72,21 +73,23 @@ public class NewCityButton extends Button {
 		return button;
 
 	}
+
 	private Polygon createHexagon(double size) {
-	    Polygon hexagon = new Polygon();
-	    double centerX = size / 2.0;
-	    double centerY = size / 2.0;
-	    double radius = size / 2.0;
+		Polygon hexagon = new Polygon();
+		double centerX = size / 2.0;
+		double centerY = size / 2.0;
+		double radius = size / 2.0;
 
-	    for (int i = 0; i < 6; i++) {
-	        double angle = 2.0 * Math.PI / 6 * i;
-	        double x = centerX + radius * Math.cos(angle);
-	        double y = centerY + radius * Math.sin(angle);
-	        hexagon.getPoints().addAll(x, y);
-	    }
+		for (int i = 0; i < 6; i++) {
+			double angle = 2.0 * Math.PI / 6 * i;
+			double x = centerX + radius * Math.cos(angle);
+			double y = centerY + radius * Math.sin(angle);
+			hexagon.getPoints().addAll(x, y);
+		}
 
-	    return hexagon;
+		return hexagon;
 	}
+
 	public int calculateDistance(int x1, int y1, int x2, int y2) {
 		x1 /= 50;
 		x2 /= 50;
@@ -105,7 +108,7 @@ public class NewCityButton extends Button {
 	public String getCityInformation() {
 		return String.format("%s (City ID = %d, Distance = %d, Vehicle Capacity = %d)", lvl.cities.get(index).getName(),
 				lvl.cities.get(index).getId(), calculateDistance((int) (endX), (int) (endY),
-						(int) (lvl.vehicle.xCordinate), (int) (lvl.vehicle.yCordinate)),
+						(int) (lvl.vehicle.xCoordinate), (int) (lvl.vehicle.yCoordinate)),
 				lvl.vehicles.get(0).getCapacity());
 	}
 
@@ -149,15 +152,15 @@ public class NewCityButton extends Button {
 				lvl.vehicle.pasAtVehicle = passengersToTransport;
 				lvl.passengers.get(i).setNumOfPas(lvl.passengers.get(i).getNumOfPas() - passengersToTransport);
 
-
 			}
 
 		}
-        
+
 		if (isTransferred()) {
 			lvl.getPane().top.b.setOpacity(1);
 			lvl.getPane().top.b.setDisable(false);
 
 		}
 	}
+
 }
