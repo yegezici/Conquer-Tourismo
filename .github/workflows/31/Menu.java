@@ -63,7 +63,7 @@ public class Menu extends BorderPane {
         buttons.setAlignment(Pos.CENTER);
 
         // Set mouse enter and exit event handlers for button hover effects
-        //They have same effects. If cursor moves in button border, their label is set to bold style.
+        //They have same effects. If cursor moves in button border, their labels are set to bold style.
         newGameButton.setOnMouseEntered(h -> {
             newGameButton.setOpacity(0.9);
             t1.setFont(Font.font("Times New Roman", FontWeight.BOLD, 24));
