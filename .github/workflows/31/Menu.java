@@ -63,7 +63,7 @@ public class Menu extends BorderPane {
         buttons.setAlignment(Pos.CENTER);
 
         // Set mouse enter and exit event handlers for button hover effects
-        //They have same effects. If cursor moves in button border, their labels are set to bold style.
+        //They have same effects. If cursor moves in button border, their label is set to bold style.
         newGameButton.setOnMouseEntered(h -> {
             newGameButton.setOpacity(0.9);
             t1.setFont(Font.font("Times New Roman", FontWeight.BOLD, 24));
@@ -80,8 +80,12 @@ public class Menu extends BorderPane {
             continueGameButton.setOpacity(0.8);
             t2.setFont(Font.font("Times New Roman", FontWeight.NORMAL, 24));
         });
-
-        // Set the position of the VBox within the backgroundPane
+        
+        
+        setTranslateY(-10);
+        VBox.setMargin(newGameButton, new Insets(0, 0, 50, 0)); //Set margin between buttons and title
+        backgroundPane.setStyle("-fx-background-image: url('backgroundmainmenu.png'); -fx-background-size: cover;"); //Adding background image and covering all window
+       
         buttons.layoutXProperty().bind(backgroundPane.widthProperty().subtract(buttons.widthProperty()).divide(2));
         buttons.layoutYProperty().bind(backgroundPane.heightProperty().subtract(buttons.heightProperty()).divide(2));
 
