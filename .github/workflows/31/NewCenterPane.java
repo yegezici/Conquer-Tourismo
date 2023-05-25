@@ -120,9 +120,7 @@ public class NewCenterPane extends Pane {
 			double xOfFixed = (fixed % 10 - 1) * cellWidth;
 			double yOfFixed = (fixed / 10 + 1) * cellHeight - 5;
 			if (startX > endX && startY < endY) {
-				System.out.println(31);
 				if (xOfFixed == endX) {
-					System.out.println(32);
 					polyline.getPoints().addAll(startX, startY, endX, startY, endX, yOfFixed - 50, endX + 50,
 							yOfFixed - 50);
 					fixed = isThere(endX + 50, yOfFixed - 50, endX, endY);
@@ -132,7 +130,6 @@ public class NewCenterPane extends Pane {
 						// ...
 					}
 				} else if (yOfFixed == startY) {
-					System.out.println(33);
 					polyline.getPoints().addAll(startX, startY, xOfFixed - 50, startY);
 					fixed = isThere(xOfFixed - 50, startY, endX, endY);
 					if (fixed == 0) {
@@ -145,16 +142,12 @@ public class NewCenterPane extends Pane {
 						yOfFixed = (fixed / 10) * cellHeight;
 					}
 				} else if (yOfFixed == endY) {
-					System.out.println(34);
 				} else if (xOfFixed == startX) {
-					System.out.println(35);
 				} else {
 					polyline.getPoints().addAll(startX, startY, endX, startY, endX, endY);
 				}
 			} else if (startX < endX && startY > endY) {
-				System.out.println(yOfFixed);
 				if (startY == yOfFixed) {
-					System.out.println(40);
 					polyline.getPoints().addAll(startX, startY, xOfFixed - 50, startY, xOfFixed - 50, startY - 50);
 					fixed = isThere(xOfFixed - 50, startY - 50, endX, endY);
 					if (fixed == 0) {
@@ -189,10 +182,10 @@ public class NewCenterPane extends Pane {
 		int vy = location / 10;
 		lvl.vehicle.imageView.setFitWidth(35);
 		lvl.vehicle.imageView.setFitHeight(35);
-		lvl.vehicle.xCordinate = vx * cellWidth;
-		lvl.vehicle.yCordinate = vy * cellHeight;
-		lvl.vehicle.imageView.setLayoutX(lvl.vehicle.xCordinate);
-		lvl.vehicle.imageView.setLayoutY(lvl.vehicle.yCordinate);
+		lvl.vehicle.xCoordinate = vx * cellWidth;
+		lvl.vehicle.yCoordinate = vy * cellHeight;
+		lvl.vehicle.imageView.setLayoutX(lvl.vehicle.xCoordinate);
+		lvl.vehicle.imageView.setLayoutY(lvl.vehicle.yCoordinate);
 		this.getChildren().add(lvl.vehicle.imageView);
 
 	}
