@@ -1,10 +1,8 @@
+//Muhammed Hasan Erzincanli 150121031
+//Yunus Emre Gezici 150121066
 import java.io.File;
-
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
