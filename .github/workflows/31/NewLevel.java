@@ -47,7 +47,7 @@ public class NewLevel {
 				//We need an integer as a parameter. Since it is a string, we use valueOf method in Integer class to convert String to integer.
 				if (inputs[0].equals("City")) {
 					// Create a new City object and add it to the list of cities
-					cities.add(new City(inputs[1], Integer.valueOf(inputs[2]), Integer.valueOf(inputs[3]), this));   
+					cities.add(new City(inputs[1], Integer.valueOf(inputs[2]), Integer.valueOf(inputs[3])));   
 				} else if (inputs[0].equals("Passenger")) {
 					// Create a new Passenger object and add it to the list of passengers
 					passengers.add(new Passenger(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]),
