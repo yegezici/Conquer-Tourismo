@@ -1,3 +1,5 @@
+//Muhammed Hasan Erzincanli 150121031
+//Yunus Emre Gezici 150121066
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
