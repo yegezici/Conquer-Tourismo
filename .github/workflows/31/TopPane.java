@@ -1,3 +1,5 @@
+//Muhammed Hasan Erzincanli 150121031
+//Yunus Emre Gezici 150121066
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
