@@ -34,29 +34,33 @@ public class NewCenterPane extends Pane {
 		Image img6 = new Image("fixedcellsign.png");
 		// Due to our cities's image are selected randomly we put them in an array
 		Image[] imgarr = { img, img1, img2, img3, img4, img5 };
-
-		int i = 0, a = 0, b = 0;
+        //Nested loops for 10x10 field.
+		int i = 0, a = 0, b = 0;   //a refers to index in lvl.cities array list, b refers to fixedCells index of array list, i refers to id of each cell.
 		for (int row = 0; row < 10; row++) {
 			for (int col = 0; col < 10; col++) {
-				if (a == lvl.cities.size())
+				if (a == lvl.cities.size())       //
 					break;
-				if (!(lvl.fixedCells.size() == b)) {
+				//Placing fixed cell image in the correct position
+				if (!(lvl.fixedCells.size() == b)) {           
 					ImageView iv = new ImageView(img6);
 					iv.setFitWidth(35);
 					iv.setFitHeight(35);
-					nodes[(lvl.fixedCells.get(b) % 10) - 1][(lvl.fixedCells.get(b)) / 10] = iv;
-					b++;
+					nodes[(lvl.fixedCells.get(b) % 10) - 1][(lvl.fixedCells.get(b)) / 10] = iv; //Mathematical calculations to determine row and column 
+					b++; 
 				}
+			//If city ID and i (cell ID) matches, create a NewCityButton object and call createButton method.	
 				if (lvl.cities.get(a).getLocId() == i) {
-					NewCityButton button = new NewCityButton(lvl.cities.get(a).getName(),
-							imgarr[(int) (Math.random() * 6)],
+					NewCityButton button = new NewCityButton(lvl.cities.get(a).getName(),  //Getting the name of the city by accessing the array list 
+							imgarr[(int) (Math.random() * 6)],   //Random image between six images		
+	/** If city is in the edge of the pane calculations is made different. And the result will multiply with cellWidth or cellHeight
+		for getting correct position (x,y) of the city in the pane */
 							(lvl.cities.get(a).getLocId() % 10 == 0
 									? (((lvl.cities.get(a).getLocId() % 10) + 8) - 1) * cellWidth
 									: (((lvl.cities.get(a).getLocId() % 10)) - 1) * cellWidth),
 							(lvl.cities.get(a).getLocId() % 10 == 0)
 									? ((lvl.cities.get(a).getLocId() / 10) - 1) * cellHeight
 									: (((lvl.cities.get(a).getLocId()) / 10 + 1) - 1) * cellHeight,
-							lvl, a);
+							lvl, a);                //As it is said, a refers to index of the city in the array list.
 
 					city = button;
 
@@ -68,12 +72,13 @@ public class NewCenterPane extends Pane {
 						nodes[(lvl.cities.get(a).getLocId() % 10) - 1][(lvl.cities.get(a).getLocId() / 10)] = button
 								.createButton(text);
 					}
-					row = 0;
+					//row, col, i is reseted. And loop will start iterating again and again for every indexes of cities array list.
+					row = 0;              
 					col = 0;
 					a++;
 					i = 0;
 
-				} else
+				} else           //If any NewCityButton is not created, loop will continue iterating.
 					i++;
 			}
 
