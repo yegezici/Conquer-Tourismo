@@ -1,3 +1,5 @@
+//Muhammed Hasan Erzincanli 150121031
+//Yunus Emre Gezici 150121066
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -18,7 +20,7 @@ public class Menu extends BorderPane {
     Pane backgroundPane = new Pane();               // Pane for the background image
     VBox buttons = new VBox();                      // VBox to hold the buttons and title text
     Text title = new Text("");                      // Text for the title of the menu screen
-    Image backgroundImage = new Image("backgroundd.png");  // Image for the background
+    Image backgroundImage = new Image("backgroundmainmenu.png");  // Image for the background
     ImageView backgroundImageView = new ImageView(backgroundImage);  // ImageView for the background image
 
     public Menu() {
