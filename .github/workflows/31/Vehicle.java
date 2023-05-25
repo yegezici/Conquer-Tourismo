@@ -7,8 +7,9 @@ public class Vehicle {
 	private int destCityId;           //destCityId keeps the ID of the destination city to which the vehicle is traveling.
 	private int capacity;             //capacity keeps the maximum number of capacity to transport.
 	ImageView imageView;              //imageView is used to show the image of this vehicle in scene.
-	double xCordinate;                //x coordinate of this vehicle.
-	double yCordinate;      		  //y coordinate of this vehicle.               
+	double xCoordinate;                //x coordinate of this vehicle.
+	double yCoordinate;                //y coordinate of this vehicle.    
+	int pasAtVehicle;				  //It keeps how many passengers left in this vehicle.		             
 	private String CityName;          //Name of the city this vehicle is placed in.
 	
 	
