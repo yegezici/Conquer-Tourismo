@@ -1,3 +1,5 @@
+//Muhammed Hasan Erzincanli 150121031
+//Yunus Emre Gezici 150121066
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -51,7 +53,7 @@ public class NewLevel {
 				} else if (inputs[0].equals("Passenger")) {
 					// Create a new Passenger object and add it to the list of passengers
 					passengers.add(new Passenger(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]),
-							Integer.valueOf(inputs[3]), this));
+							Integer.valueOf(inputs[3])));
 				} else if (inputs[0].equals("Vehicle")) {
 					// Create a new Vehicle object and add it to the list of vehicles
 					vehicle = new Vehicle(Integer.valueOf(inputs[1]), Integer.valueOf(inputs[2]));  
