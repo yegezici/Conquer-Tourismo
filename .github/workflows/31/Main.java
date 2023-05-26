@@ -24,24 +24,25 @@ public class Main extends Application {
 		
       //When New Game button is clicked, a new scene is constructed and is displayed for level 1 data.  
 		menu.newGameButton.setOnAction(e -> {
-            //Create a file object of level1.txt file which is a level file with needed input data.
-			File name = new File("level1.txt");
-			//Create a level object and call readingFile method to scan the level 1 file.
+            //Create a file object of level0.txt file which is a level file with needed input data.
+			File name = new File("level0.txt");
+			//Create a level object and call readingFile method to scan the level 0 file.
 			NewLevel level = new NewLevel(name);
 			level.readingFile();
 			//Create a text object that is going to be set in other classes. This text represents the each specific info about city.
 			Text text = new Text();   
 			//All panes are constructed in the order and add to MainPane which is subclass of BorderPane.
-			NewCenterPane root = new NewCenterPane(level,text);
+			NewCenterPane root = new NewCenterPane();
 			BottomPane bp = new BottomPane(level,text);
 			MainPane pane = new MainPane(tp, root, bp);
 			root.setStyle("-fx-background-color: linear-gradient(rgba(0, 200, 255, 0.5), rgba(0, 255, 168, 0.5));");  //Background color is set.
 
 			level.setPane(pane);
-            Scene scene2 = new Scene(pane,500,600);
+			tp.t1.setText("LEVEL: " + 0);
+            Scene scene2 = new Scene(pane,500,680);
             //b refers to New Level button and this is button will be active when the number of passengers is zero.
-            tp.b.setDisable(true);                                   
-            tp.b.setOpacity(0.5);
+            tp.b.setDisable(false);                                  
+            tp.b.setOpacity(0.76);
             tp.back.setDisable(true);       //back refers to Previous Level button. Previous Level is going to be disabled because it is first level. 
 			primaryStage.setScene(scene2);     //Switch to this scene with these panes.
 
@@ -49,23 +50,28 @@ public class Main extends Application {
 		//When Continue Game button is clicked, scene of last level is constructed and is displayed.  
 		menu.continueGameButton.setOnAction(e -> {
             //Array of level file names.
-			String[] lvlarr = { "level1.txt", "level2.txt", "level3.txt", "level4.txt", "level5.txt" };
+			String[] lvlarr = {"level1.txt", "level2.txt", "level3.txt", "level4.txt", "level5.txt" };
 			int index = 0;   //Index of last level
 			//load method is called and find the index of last level in level array.
 			String lastLevel = SaveAndLoad.load();
+			System.out.println("this is " + lastLevel);
 			for (int i = 0; i < lvlarr.length; i++) {
 				if (lvlarr[i].equals(lastLevel))
-					index = i;		
+					index = i;	
+				
 			}              
 			//Create a File object with the last level file.
 			File name = new File(SaveAndLoad.load());
 			//Create a level object and call readingFile method to scan the last level file.
+			
 			NewLevel level = new NewLevel(name);
 			level.readingFile();
 			//Create a text object that is going to be set in other classes. This text represents the each specific info about city.
 			Text text = new Text();
-			//All panes are constructed in the order and add to MainPane which is subclass of BorderPane.
+			//All panes are constructed in the order and add to MainPane which is subclass of BorderPane.	
 			NewCenterPane root = new NewCenterPane(level,text);
+			tp.b.setDisable(false);
+			tp.b.setOpacity(0.5);		
 			BottomPane bp = new BottomPane(level,text);
 			MainPane pane = new MainPane(tp, root, bp);
 			root.setStyle("-fx-background-color: linear-gradient(rgba(0, 200, 255, 0.5), rgba(0, 255, 168, 0.5));"); //Background color is set.
@@ -82,7 +88,8 @@ public class Main extends Application {
 	            }
 			 else
 				 tp.back.setDisable(false);
-			Scene scene2 = new Scene(pane, 500, 600);       
+			currentLevel++;
+			Scene scene2 = new Scene(pane, 500, 650);       
 			primaryStage.setScene(scene2);                //Switch to this scene with these panes.
 		});
 		/** When Next Level button is clicked, switch to next level and construct scene with provided level info.
@@ -92,24 +99,27 @@ public class Main extends Application {
 		tp.b.setOnAction(e -> {
 			
 			currentLevel++;
-			String[] lvlarr = { "level1.txt", "level2.txt", "level3.txt", "level4.txt", "level5.txt" };
+			String[] lvlarr = {"level0.txt", "level1.txt", "level2.txt", "level3.txt", "level4.txt", "level5.txt" };
 			SaveAndLoad sl = new SaveAndLoad(lvlarr[currentLevel]);
 			File name = new File(lvlarr[currentLevel]);
 			NewLevel level = new NewLevel(name);
 			level.readingFile();
 			Text text = new Text();
 			NewCenterPane root = new NewCenterPane(level,text);
+			if(currentLevel == 0) {
+				root = new NewCenterPane();
+			}
 			BottomPane bp = new BottomPane(level,text);
 			MainPane pane = new MainPane(tp, root, bp);
 			level.setPane(pane);
 			root.setStyle("-fx-background-color: linear-gradient(rgba(0, 200, 255, 0.5), rgba(0, 255, 168, 0.5));");
-			Scene scene2 = new Scene(pane, 500, 600);
+			Scene scene2 = new Scene(pane, 500, 650);
 			sl.save();
 			primaryStage.setScene(scene2);
             tp.back.setOpacity(0.76);
-			tp.t1.setText("LEVEL: " + (currentLevel + 1));
+			tp.t1.setText("LEVEL: " + (currentLevel));
 			tp.b.setOpacity(0.5);
-            tp.b.setDisable(true);
+            tp.b.setDisable(false);
             //If it is last level, Next Level button will be passive. Because there is not an another level.
             if(lvlarr[currentLevel] == lvlarr[lvlarr.length - 1]) {
             	tp.b.setDisable(true);
@@ -122,25 +132,35 @@ public class Main extends Application {
 		*/
 		
 		tp.back.setOnAction(e -> {
+			System.out.println("This is first " + currentLevel);
 			currentLevel--;
-			String[] lvlarr = { "level1.txt", "level2.txt", "level3.txt", "level4.txt", "level5.txt" };
+			String[] lvlarr = {"level0.txt","level1.txt", "level2.txt", "level3.txt", "level4.txt", "level5.txt" };
+			System.out.println("This is second " + currentLevel);
 			SaveAndLoad sl = new SaveAndLoad(lvlarr[currentLevel]);
 			File name = new File(lvlarr[currentLevel]);
 			NewLevel level = new NewLevel(name);
 			level.readingFile();
 			Text text = new Text();
-			NewCenterPane root = new NewCenterPane(level,text);
+			NewCenterPane root = new NewCenterPane();
+			tp.b.setDisable(false);
+			tp.b.setOpacity(0.76);
+			if(currentLevel != 0) {
+				root = new NewCenterPane(level,text);
+				tp.b.setDisable(true);
+				tp.b.setOpacity(0.5);
+			}
+			
 			BottomPane bp = new BottomPane(level,text);
 			MainPane pane = new MainPane(tp, root, bp);
 			level.setPane(pane);
 			root.setStyle("-fx-background-color: linear-gradient(rgba(0, 200, 255, 0.5), rgba(0, 255, 168, 0.5));");
-			Scene scene2 = new Scene(pane, 500, 600);
+			Scene scene2 = new Scene(pane, 500, 650);
 			sl.save();
 			primaryStage.setScene(scene2);
             
-			tp.t1.setText("LEVEL: " + (currentLevel + 1));
-			tp.b.setOpacity(0.5);
-			tp.b.setDisable(true);
+			tp.t1.setText("LEVEL: " + (currentLevel));
+			
+			
 			//If it is first level, Previous Level button will be passive. Because there is not an previous level before the first one.
 			 if(currentLevel == 0) {       
 	            	tp.back.setDisable(true);
