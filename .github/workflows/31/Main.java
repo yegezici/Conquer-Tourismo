@@ -1,6 +1,9 @@
 //Muhammed Hasan Erzincanli 150121031
 //Yunus Emre Gezici 150121066
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
@@ -20,7 +23,22 @@ public class Main extends Application {
 		primaryStage.setResizable(false);           //It disables to resize window.
 		primaryStage.setScene(scene);
 		//Since TopPane constructor does not take NewLevel as a parameter, it is constructed first and foremost.
-		TopPane tp = new TopPane();   
+		TopPane tp = new TopPane();  
+		File levelfile = new File("saves.txt");
+		Scanner inp;
+		try {
+			inp = new Scanner(levelfile);
+			if(inp.next().equals("level0.txt")) {
+			menu.continueGameButton.setDisable(true);
+			}
+			else {
+			menu.continueGameButton.setDisable(false);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
       //When New Game button is clicked, a new scene is constructed and is displayed for level 1 data.  
 		menu.newGameButton.setOnAction(e -> {
