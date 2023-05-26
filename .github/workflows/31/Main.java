@@ -23,12 +23,13 @@ public class Main extends Application {
 		primaryStage.setResizable(false);           //It disables to resize window.
 		primaryStage.setScene(scene);
 		//Since TopPane constructor does not take NewLevel as a parameter, it is constructed first and foremost.
-		TopPane tp = new TopPane();  
-		File levelfile = new File("saves.txt");
+		TopPane tp = new TopPane();    
+		File levelfile = new File("saves.txt");   
 		Scanner inp;
+		//Check if level 0 or not and disable the continue game button.
 		try {
 			inp = new Scanner(levelfile);
-			if(inp.next().equals("level0.txt")) {
+			if(!(inp.hasNext())|| inp.next().equals("level0.txt")) {	    
 			menu.continueGameButton.setDisable(true);
 			}
 			else {
